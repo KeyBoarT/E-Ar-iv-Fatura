@@ -125,6 +125,50 @@ namespace E_Arşiv_Fatura
                 MessageBox.Show("İnternete bağlı değilsiniz !");
             }
         }
+        //Giriş Yap butonuna tıklayınca yapılan kodlar
+
+        private void girisYapButton_Click(object sender, EventArgs e)
+        {
+            Wait wait = new Wait();
+            Cursor.Current = Cursors.WaitCursor;
+            if (!wait.TryGoToUrl(5, "https://earsivportal.efatura.gov.tr/intragiris.html"))
+            {
+                MessageBox.Show("İnternete bağlı değilsiniz !");
+                return;
+            }
+
+            //Siteye TextBox'lardan aldığımız verileri gönderiyoruz
+            driver.FindElement(By.CssSelector("#userid")).SendKeys(kullaniciAdiTextBox.Text);
+            driver.FindElement(By.CssSelector("#password")).SendKeys(parolaTextBox.Text);
+            driver.FindElement(By.CssSelector("#formdiv > div:nth-child(4) > div > button")).Click();
+            System.Threading.Thread.Sleep(500);
+
+            //Eğer bir hata ile karşılaşırsak programı durduracak
+
+            if (wait.TryFindByCSSSelector(1, "#hataMesaji"))
+            {
+                string hataMesaji = driver.FindElement(By.CssSelector("#hataMesaji")).Text;
+                if (hataMesaji != "")
+                {
+                    MessageBox.Show(hataMesaji);
+                    driver.FindElement(By.CssSelector("#btn-hata-ok")).Click();
+                    return;
+                }
+
+                if (!wait.TryFindByCSSSelector(1, "#gen__1006"))
+                {
+                    MessageBox.Show("Bir şeyler ters gitti, Lütfen bağlantınızı kontrol edin !");
+                    return;
+                }
+            }
+            driver.FindElement(By.CssSelector("#gen__1006 > option:nth-child(2)")).Click();
+
+            //Her şey doğru çalıştığı zaman giriş formumuzu kapatıyoruz ve Uygulama Formumuza geçiyoruz
+            mainScreenForm form = new mainScreenForm();
+            this.Hide();
+            form.Show();
+        }
+
         
     }
 }

@@ -92,6 +92,7 @@ namespace E_Arşiv_Fatura
             this.kullaniciAdiTextBox.Name = "kullaniciAdiTextBox";
             this.kullaniciAdiTextBox.Size = new System.Drawing.Size(306, 20);
             this.kullaniciAdiTextBox.TabIndex = 3;
+            this.kullaniciAdiTextBox.Text = "Kullanıcı Adı";
             this.kullaniciAdiTextBox.Enter += new System.EventHandler(this.kullaniciAdiTextBox_Enter);
             this.kullaniciAdiTextBox.Leave += new System.EventHandler(this.kullaniciAdiTextBox_Leave);
             // 
@@ -104,6 +105,7 @@ namespace E_Arşiv_Fatura
             this.parolaTextBox.Name = "parolaTextBox";
             this.parolaTextBox.Size = new System.Drawing.Size(306, 20);
             this.parolaTextBox.TabIndex = 4;
+            this.parolaTextBox.Text = "Parola";
             this.parolaTextBox.Enter += new System.EventHandler(this.parolaTextBox_Enter);
             this.parolaTextBox.Leave += new System.EventHandler(this.parolaTextBox_Leave);
             // 
@@ -118,17 +120,17 @@ namespace E_Arşiv_Fatura
             this.girisYapButton.TabIndex = 5;
             this.girisYapButton.Text = "Giriş Yap";
             this.girisYapButton.UseVisualStyleBackColor = false;
+            this.girisYapButton.Click += new System.EventHandler(this.girisYapButton_Click);
             // 
             // sifreyiGizleGosterCheckBox
             // 
             this.sifreyiGizleGosterCheckBox.AutoSize = true;
             this.sifreyiGizleGosterCheckBox.BackColor = System.Drawing.Color.Transparent;
             this.sifreyiGizleGosterCheckBox.FlatAppearance.BorderSize = 0;
-            this.sifreyiGizleGosterCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sifreyiGizleGosterCheckBox.ForeColor = System.Drawing.Color.White;
-            this.sifreyiGizleGosterCheckBox.Location = new System.Drawing.Point(191, 396);
+            this.sifreyiGizleGosterCheckBox.Location = new System.Drawing.Point(190, 397);
             this.sifreyiGizleGosterCheckBox.Name = "sifreyiGizleGosterCheckBox";
-            this.sifreyiGizleGosterCheckBox.Size = new System.Drawing.Size(133, 25);
+            this.sifreyiGizleGosterCheckBox.Size = new System.Drawing.Size(136, 25);
             this.sifreyiGizleGosterCheckBox.TabIndex = 6;
             this.sifreyiGizleGosterCheckBox.Text = "Şifreyi Gizle";
             this.sifreyiGizleGosterCheckBox.UseVisualStyleBackColor = false;
