@@ -131,7 +131,7 @@ namespace E_Arşiv_Fatura
         {
             Wait wait = new Wait();
             Cursor.Current = Cursors.WaitCursor;
-            if (!wait.TryGoToUrl(5, "https://earsivportal.efatura.gov.tr/intragiris.html"))
+            if (!wait.TryGoToUrl(2, "https://earsivportal.efatura.gov.tr/intragiris.html"))
             {
                 MessageBox.Show("İnternete bağlı değilsiniz !");
                 return;
@@ -157,11 +157,15 @@ namespace E_Arşiv_Fatura
 
                 if (!wait.TryFindByCSSSelector(1, "#gen__1006"))
                 {
-                    MessageBox.Show("Bir şeyler ters gitti, Lütfen bağlantınızı kontrol edin !");
+                    MessageBox.Show("Bir şeyler ters gitti, lütfen bağlantınızı kontrol edin !");
                     return;
                 }
             }
             driver.FindElement(By.CssSelector("#gen__1006 > option:nth-child(2)")).Click();
+            if (wait.TryFindByXPath(5, "/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[1]/div/div/div/div/div/div/ul/li[2]/a"))
+                driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[1]/div/div/div/div/div/div/ul/li[2]/a")).Click();
+            else
+                MessageBox.Show("Bir şeyler ters gitti, lütfen bağlantınızı kontrol edin !");
 
             //Her şey doğru çalıştığı zaman giriş formumuzu kapatıyoruz ve Uygulama Formumuza geçiyoruz
             mainScreenForm form = new mainScreenForm();
