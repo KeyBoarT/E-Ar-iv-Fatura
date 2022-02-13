@@ -29,6 +29,11 @@ namespace E_Arşiv_Fatura
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.mainScreenMenuPanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.mainScreenExitButton = new System.Windows.Forms.Button();
@@ -42,43 +47,62 @@ namespace E_Arşiv_Fatura
             this.hosgeldinizTabPage = new System.Windows.Forms.TabPage();
             this.faturaOlusturTabPage = new System.Windows.Forms.TabPage();
             this.faturaOlusturPanel = new System.Windows.Forms.Panel();
-            this.duzenlenmeTarihiLabel = new System.Windows.Forms.GroupBox();
-            this.olusturulanFaturalarTabPage = new System.Windows.Forms.TabPage();
-            this.ettnLabel = new System.Windows.Forms.Label();
-            this.belgeNumarasiLabel = new System.Windows.Forms.Label();
-            this.duzenlenmeSaatiLabel = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.ettnSonucLabel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.duzenlenmeSaatiDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.duzenlenmeTarihiDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.toplamlarGroupBox = new System.Windows.Forms.GroupBox();
+            this.vergilerDahilToplamTutarSonucLabel = new System.Windows.Forms.Label();
+            this.hesaplananKdvSonucLabel = new System.Windows.Forms.Label();
+            this.malHizmetToplamTutarıSonucLabel = new System.Windows.Forms.Label();
+            this.vergilerDahilToplamTutarLabel = new System.Windows.Forms.Label();
+            this.hesaplananKdvLabel = new System.Windows.Forms.Label();
+            this.malHizmetToplamTutarLabel = new System.Windows.Forms.Label();
+            this.malHizmetBilgileriGroupBox = new System.Windows.Forms.GroupBox();
+            this.satirSilButton = new System.Windows.Forms.Button();
+            this.satirEkleButton = new System.Windows.Forms.Button();
+            this.malHizmetBilgisiDataGridView = new System.Windows.Forms.DataGridView();
+            this.deleteColumnCheckBox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.malHizmetColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.miktarColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.birimColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.birimFiyatiColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.malHizmetTutariColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.kDVOraniComboBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.kdvTutariColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aliciBilgileriGroupBox = new System.Windows.Forms.GroupBox();
+            this.ulkeComboBox = new System.Windows.Forms.ComboBox();
+            this.adresTextBox = new System.Windows.Forms.TextBox();
+            this.soyadıTextBox = new System.Windows.Forms.TextBox();
+            this.adıTextBox = new System.Windows.Forms.TextBox();
+            this.unvanTextBox = new System.Windows.Forms.TextBox();
+            this.vknTextBox = new System.Windows.Forms.TextBox();
+            this.adresLabel = new System.Windows.Forms.Label();
+            this.ulkeLabel = new System.Windows.Forms.Label();
             this.soyadiLabel = new System.Windows.Forms.Label();
             this.adiLabel = new System.Windows.Forms.Label();
             this.unvanLabel = new System.Windows.Forms.Label();
             this.vknLabel = new System.Windows.Forms.Label();
-            this.adresLabel = new System.Windows.Forms.Label();
-            this.ulkeLabel = new System.Windows.Forms.Label();
-            this.vknTextBox = new System.Windows.Forms.TextBox();
-            this.unvanTextBox = new System.Windows.Forms.TextBox();
-            this.soyadıTextBox = new System.Windows.Forms.TextBox();
-            this.adıTextBox = new System.Windows.Forms.TextBox();
-            this.adresTextBox = new System.Windows.Forms.TextBox();
-            this.ulkeComboBox = new System.Windows.Forms.ComboBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.irsaliyeNumarasiTextBox = new System.Windows.Forms.TextBox();
-            this.irsaliyeTarihiLabel = new System.Windows.Forms.Label();
-            this.irsaliyeNumarasiLabel = new System.Windows.Forms.Label();
-            this.irsaliyeTarihiDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.duzenlenmeTarihiLabel = new System.Windows.Forms.GroupBox();
+            this.duzenlenmeTarihiDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.duzenlenmeSaatiDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.ettnSonucLabel = new System.Windows.Forms.Label();
+            this.duzenlenmeSaatiLabel = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.belgeNumarasiLabel = new System.Windows.Forms.Label();
+            this.ettnLabel = new System.Windows.Forms.Label();
+            this.olusturulanFaturalarTabPage = new System.Windows.Forms.TabPage();
+            this.notGroupBox = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.mainScreenMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainScreenMenuPictureBox)).BeginInit();
             this.islemlerGroupBox.SuspendLayout();
             this.islemlerTabControl.SuspendLayout();
             this.faturaOlusturTabPage.SuspendLayout();
             this.faturaOlusturPanel.SuspendLayout();
+            this.toplamlarGroupBox.SuspendLayout();
+            this.malHizmetBilgileriGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.malHizmetBilgisiDataGridView)).BeginInit();
+            this.aliciBilgileriGroupBox.SuspendLayout();
             this.duzenlenmeTarihiLabel.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.notGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainScreenMenuPanel
@@ -242,254 +266,308 @@ namespace E_Arşiv_Fatura
             // 
             // faturaOlusturPanel
             // 
-            this.faturaOlusturPanel.Controls.Add(this.groupBox2);
-            this.faturaOlusturPanel.Controls.Add(this.groupBox1);
+            this.faturaOlusturPanel.Controls.Add(this.notGroupBox);
+            this.faturaOlusturPanel.Controls.Add(this.toplamlarGroupBox);
+            this.faturaOlusturPanel.Controls.Add(this.malHizmetBilgileriGroupBox);
+            this.faturaOlusturPanel.Controls.Add(this.aliciBilgileriGroupBox);
             this.faturaOlusturPanel.Controls.Add(this.duzenlenmeTarihiLabel);
             this.faturaOlusturPanel.Location = new System.Drawing.Point(0, 0);
             this.faturaOlusturPanel.Name = "faturaOlusturPanel";
-            this.faturaOlusturPanel.Size = new System.Drawing.Size(772, 787);
+            this.faturaOlusturPanel.Size = new System.Drawing.Size(772, 1122);
             this.faturaOlusturPanel.TabIndex = 0;
             // 
-            // duzenlenmeTarihiLabel
+            // toplamlarGroupBox
             // 
-            this.duzenlenmeTarihiLabel.Controls.Add(this.duzenlenmeTarihiDateTimePicker);
-            this.duzenlenmeTarihiLabel.Controls.Add(this.duzenlenmeSaatiDateTimePicker);
-            this.duzenlenmeTarihiLabel.Controls.Add(this.label1);
-            this.duzenlenmeTarihiLabel.Controls.Add(this.ettnSonucLabel);
-            this.duzenlenmeTarihiLabel.Controls.Add(this.duzenlenmeSaatiLabel);
-            this.duzenlenmeTarihiLabel.Controls.Add(this.label4);
-            this.duzenlenmeTarihiLabel.Controls.Add(this.belgeNumarasiLabel);
-            this.duzenlenmeTarihiLabel.Controls.Add(this.ettnLabel);
-            this.duzenlenmeTarihiLabel.Font = new System.Drawing.Font("Roboto", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.duzenlenmeTarihiLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.duzenlenmeTarihiLabel.Location = new System.Drawing.Point(6, 6);
-            this.duzenlenmeTarihiLabel.Name = "duzenlenmeTarihiLabel";
-            this.duzenlenmeTarihiLabel.Size = new System.Drawing.Size(763, 156);
-            this.duzenlenmeTarihiLabel.TabIndex = 0;
-            this.duzenlenmeTarihiLabel.TabStop = false;
-            this.duzenlenmeTarihiLabel.Text = "Fatura Bilgileri";
+            this.toplamlarGroupBox.Controls.Add(this.vergilerDahilToplamTutarSonucLabel);
+            this.toplamlarGroupBox.Controls.Add(this.hesaplananKdvSonucLabel);
+            this.toplamlarGroupBox.Controls.Add(this.malHizmetToplamTutarıSonucLabel);
+            this.toplamlarGroupBox.Controls.Add(this.vergilerDahilToplamTutarLabel);
+            this.toplamlarGroupBox.Controls.Add(this.hesaplananKdvLabel);
+            this.toplamlarGroupBox.Controls.Add(this.malHizmetToplamTutarLabel);
+            this.toplamlarGroupBox.Font = new System.Drawing.Font("Roboto", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.toplamlarGroupBox.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.toplamlarGroupBox.Location = new System.Drawing.Point(6, 767);
+            this.toplamlarGroupBox.Name = "toplamlarGroupBox";
+            this.toplamlarGroupBox.Size = new System.Drawing.Size(763, 119);
+            this.toplamlarGroupBox.TabIndex = 17;
+            this.toplamlarGroupBox.TabStop = false;
+            this.toplamlarGroupBox.Text = "Toplamlar";
             // 
-            // olusturulanFaturalarTabPage
+            // vergilerDahilToplamTutarSonucLabel
             // 
-            this.olusturulanFaturalarTabPage.Location = new System.Drawing.Point(4, 28);
-            this.olusturulanFaturalarTabPage.Name = "olusturulanFaturalarTabPage";
-            this.olusturulanFaturalarTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.olusturulanFaturalarTabPage.Size = new System.Drawing.Size(795, 621);
-            this.olusturulanFaturalarTabPage.TabIndex = 2;
-            this.olusturulanFaturalarTabPage.Text = "Oluşturulan Faturalar";
-            this.olusturulanFaturalarTabPage.UseVisualStyleBackColor = true;
+            this.vergilerDahilToplamTutarSonucLabel.Font = new System.Drawing.Font("Roboto Light", 11.25F);
+            this.vergilerDahilToplamTutarSonucLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.vergilerDahilToplamTutarSonucLabel.Location = new System.Drawing.Point(334, 95);
+            this.vergilerDahilToplamTutarSonucLabel.Name = "vergilerDahilToplamTutarSonucLabel";
+            this.vergilerDahilToplamTutarSonucLabel.Size = new System.Drawing.Size(241, 18);
+            this.vergilerDahilToplamTutarSonucLabel.TabIndex = 26;
+            this.vergilerDahilToplamTutarSonucLabel.Text = "-----";
             // 
-            // ettnLabel
+            // hesaplananKdvSonucLabel
             // 
-            this.ettnLabel.AutoSize = true;
-            this.ettnLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.ettnLabel.Location = new System.Drawing.Point(209, 22);
-            this.ettnLabel.Name = "ettnLabel";
-            this.ettnLabel.Size = new System.Drawing.Size(45, 18);
-            this.ettnLabel.TabIndex = 0;
-            this.ettnLabel.Text = "ETTN";
+            this.hesaplananKdvSonucLabel.Font = new System.Drawing.Font("Roboto Light", 11.25F);
+            this.hesaplananKdvSonucLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.hesaplananKdvSonucLabel.Location = new System.Drawing.Point(334, 62);
+            this.hesaplananKdvSonucLabel.Name = "hesaplananKdvSonucLabel";
+            this.hesaplananKdvSonucLabel.Size = new System.Drawing.Size(241, 18);
+            this.hesaplananKdvSonucLabel.TabIndex = 25;
+            this.hesaplananKdvSonucLabel.Text = "-----";
             // 
-            // belgeNumarasiLabel
+            // malHizmetToplamTutarıSonucLabel
             // 
-            this.belgeNumarasiLabel.AutoSize = true;
-            this.belgeNumarasiLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.belgeNumarasiLabel.Location = new System.Drawing.Point(138, 57);
-            this.belgeNumarasiLabel.Name = "belgeNumarasiLabel";
-            this.belgeNumarasiLabel.Size = new System.Drawing.Size(116, 18);
-            this.belgeNumarasiLabel.TabIndex = 1;
-            this.belgeNumarasiLabel.Text = "Belge Numarası";
+            this.malHizmetToplamTutarıSonucLabel.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.malHizmetToplamTutarıSonucLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.malHizmetToplamTutarıSonucLabel.Location = new System.Drawing.Point(334, 29);
+            this.malHizmetToplamTutarıSonucLabel.Name = "malHizmetToplamTutarıSonucLabel";
+            this.malHizmetToplamTutarıSonucLabel.Size = new System.Drawing.Size(241, 18);
+            this.malHizmetToplamTutarıSonucLabel.TabIndex = 24;
+            this.malHizmetToplamTutarıSonucLabel.Text = "-----";
             // 
-            // duzenlenmeSaatiLabel
+            // vergilerDahilToplamTutarLabel
             // 
-            this.duzenlenmeSaatiLabel.AutoSize = true;
-            this.duzenlenmeSaatiLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.duzenlenmeSaatiLabel.Location = new System.Drawing.Point(125, 127);
-            this.duzenlenmeSaatiLabel.Name = "duzenlenmeSaatiLabel";
-            this.duzenlenmeSaatiLabel.Size = new System.Drawing.Size(129, 18);
-            this.duzenlenmeSaatiLabel.TabIndex = 3;
-            this.duzenlenmeSaatiLabel.Text = "Düzenlenme Saati";
+            this.vergilerDahilToplamTutarLabel.AutoSize = true;
+            this.vergilerDahilToplamTutarLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.vergilerDahilToplamTutarLabel.Location = new System.Drawing.Point(138, 95);
+            this.vergilerDahilToplamTutarLabel.Name = "vergilerDahilToplamTutarLabel";
+            this.vergilerDahilToplamTutarLabel.Size = new System.Drawing.Size(190, 18);
+            this.vergilerDahilToplamTutarLabel.TabIndex = 17;
+            this.vergilerDahilToplamTutarLabel.Text = "Vergiler Dahil Toplam Tutar";
             // 
-            // label4
+            // hesaplananKdvLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.label4.Location = new System.Drawing.Point(122, 92);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(132, 18);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Düzenlenme Tarihi";
+            this.hesaplananKdvLabel.AutoSize = true;
+            this.hesaplananKdvLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.hesaplananKdvLabel.Location = new System.Drawing.Point(207, 62);
+            this.hesaplananKdvLabel.Name = "hesaplananKdvLabel";
+            this.hesaplananKdvLabel.Size = new System.Drawing.Size(121, 18);
+            this.hesaplananKdvLabel.TabIndex = 16;
+            this.hesaplananKdvLabel.Text = "Hesaplanan KDV";
             // 
-            // ettnSonucLabel
+            // malHizmetToplamTutarLabel
             // 
-            this.ettnSonucLabel.AutoSize = true;
-            this.ettnSonucLabel.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.ettnSonucLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.ettnSonucLabel.Location = new System.Drawing.Point(260, 22);
-            this.ettnSonucLabel.Name = "ettnSonucLabel";
-            this.ettnSonucLabel.Size = new System.Drawing.Size(274, 18);
-            this.ettnSonucLabel.TabIndex = 4;
-            this.ettnSonucLabel.Text = "27c9ec99-f910-4181-a1f6-4ad94d7cd5cb";
+            this.malHizmetToplamTutarLabel.AutoSize = true;
+            this.malHizmetToplamTutarLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.malHizmetToplamTutarLabel.Location = new System.Drawing.Point(145, 29);
+            this.malHizmetToplamTutarLabel.Name = "malHizmetToplamTutarLabel";
+            this.malHizmetToplamTutarLabel.Size = new System.Drawing.Size(183, 18);
+            this.malHizmetToplamTutarLabel.TabIndex = 15;
+            this.malHizmetToplamTutarLabel.Text = "Mal/Hizmet Toplam Tutarı";
             // 
-            // label1
+            // malHizmetBilgileriGroupBox
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.label1.Location = new System.Drawing.Point(260, 57);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 18);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "----------";
+            this.malHizmetBilgileriGroupBox.Controls.Add(this.satirSilButton);
+            this.malHizmetBilgileriGroupBox.Controls.Add(this.satirEkleButton);
+            this.malHizmetBilgileriGroupBox.Controls.Add(this.malHizmetBilgisiDataGridView);
+            this.malHizmetBilgileriGroupBox.Font = new System.Drawing.Font("Roboto", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.malHizmetBilgileriGroupBox.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.malHizmetBilgileriGroupBox.Location = new System.Drawing.Point(6, 470);
+            this.malHizmetBilgileriGroupBox.Name = "malHizmetBilgileriGroupBox";
+            this.malHizmetBilgileriGroupBox.Size = new System.Drawing.Size(763, 291);
+            this.malHizmetBilgileriGroupBox.TabIndex = 16;
+            this.malHizmetBilgileriGroupBox.TabStop = false;
+            this.malHizmetBilgileriGroupBox.Text = "Mal Hizmet Bilgileri";
             // 
-            // duzenlenmeSaatiDateTimePicker
+            // satirSilButton
             // 
-            this.duzenlenmeSaatiDateTimePicker.CalendarForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.duzenlenmeSaatiDateTimePicker.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.duzenlenmeSaatiDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.duzenlenmeSaatiDateTimePicker.Location = new System.Drawing.Point(263, 121);
-            this.duzenlenmeSaatiDateTimePicker.Name = "duzenlenmeSaatiDateTimePicker";
-            this.duzenlenmeSaatiDateTimePicker.ShowUpDown = true;
-            this.duzenlenmeSaatiDateTimePicker.Size = new System.Drawing.Size(200, 26);
-            this.duzenlenmeSaatiDateTimePicker.TabIndex = 6;
+            this.satirSilButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.satirSilButton.FlatAppearance.BorderSize = 0;
+            this.satirSilButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.satirSilButton.Font = new System.Drawing.Font("Directive Four", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.satirSilButton.ForeColor = System.Drawing.Color.Transparent;
+            this.satirSilButton.Location = new System.Drawing.Point(124, 253);
+            this.satirSilButton.Name = "satirSilButton";
+            this.satirSilButton.Size = new System.Drawing.Size(112, 28);
+            this.satirSilButton.TabIndex = 2;
+            this.satirSilButton.Text = "Satır Sil";
+            this.satirSilButton.UseVisualStyleBackColor = false;
+            this.satirSilButton.Click += new System.EventHandler(this.satirSilButton_Click);
             // 
-            // duzenlenmeTarihiDateTimePicker
+            // satirEkleButton
             // 
-            this.duzenlenmeTarihiDateTimePicker.CalendarFont = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.duzenlenmeTarihiDateTimePicker.CalendarForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.duzenlenmeTarihiDateTimePicker.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.duzenlenmeTarihiDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.duzenlenmeTarihiDateTimePicker.Location = new System.Drawing.Point(263, 86);
-            this.duzenlenmeTarihiDateTimePicker.Name = "duzenlenmeTarihiDateTimePicker";
-            this.duzenlenmeTarihiDateTimePicker.Size = new System.Drawing.Size(200, 26);
-            this.duzenlenmeTarihiDateTimePicker.TabIndex = 7;
+            this.satirEkleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.satirEkleButton.FlatAppearance.BorderSize = 0;
+            this.satirEkleButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.satirEkleButton.Font = new System.Drawing.Font("Directive Four", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.satirEkleButton.ForeColor = System.Drawing.Color.Transparent;
+            this.satirEkleButton.Location = new System.Drawing.Point(6, 253);
+            this.satirEkleButton.Name = "satirEkleButton";
+            this.satirEkleButton.Size = new System.Drawing.Size(112, 28);
+            this.satirEkleButton.TabIndex = 1;
+            this.satirEkleButton.Text = "Satır Ekle";
+            this.satirEkleButton.UseVisualStyleBackColor = false;
+            this.satirEkleButton.Click += new System.EventHandler(this.satirEkleButton_Click);
             // 
-            // groupBox1
+            // malHizmetBilgisiDataGridView
             // 
-            this.groupBox1.Controls.Add(this.ulkeComboBox);
-            this.groupBox1.Controls.Add(this.adresTextBox);
-            this.groupBox1.Controls.Add(this.soyadıTextBox);
-            this.groupBox1.Controls.Add(this.adıTextBox);
-            this.groupBox1.Controls.Add(this.unvanTextBox);
-            this.groupBox1.Controls.Add(this.vknTextBox);
-            this.groupBox1.Controls.Add(this.adresLabel);
-            this.groupBox1.Controls.Add(this.ulkeLabel);
-            this.groupBox1.Controls.Add(this.soyadiLabel);
-            this.groupBox1.Controls.Add(this.adiLabel);
-            this.groupBox1.Controls.Add(this.unvanLabel);
-            this.groupBox1.Controls.Add(this.vknLabel);
-            this.groupBox1.Font = new System.Drawing.Font("Roboto", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.groupBox1.Location = new System.Drawing.Point(6, 168);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(763, 296);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Alıcı Bilgileri";
+            this.malHizmetBilgisiDataGridView.AllowUserToAddRows = false;
+            this.malHizmetBilgisiDataGridView.AllowUserToDeleteRows = false;
+            this.malHizmetBilgisiDataGridView.AllowUserToResizeColumns = false;
+            this.malHizmetBilgisiDataGridView.AllowUserToResizeRows = false;
+            this.malHizmetBilgisiDataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.malHizmetBilgisiDataGridView.ColumnHeadersHeight = 40;
+            this.malHizmetBilgisiDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.deleteColumnCheckBox,
+            this.malHizmetColumn,
+            this.miktarColumn,
+            this.birimColumn,
+            this.birimFiyatiColumn,
+            this.malHizmetTutariColumn,
+            this.kDVOraniComboBoxColumn,
+            this.kdvTutariColumn});
+            this.malHizmetBilgisiDataGridView.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.malHizmetBilgisiDataGridView.Location = new System.Drawing.Point(6, 25);
+            this.malHizmetBilgisiDataGridView.Name = "malHizmetBilgisiDataGridView";
+            this.malHizmetBilgisiDataGridView.RowHeadersVisible = false;
+            this.malHizmetBilgisiDataGridView.RowHeadersWidth = 40;
+            this.malHizmetBilgisiDataGridView.Size = new System.Drawing.Size(751, 222);
+            this.malHizmetBilgisiDataGridView.TabIndex = 0;
+            this.malHizmetBilgisiDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.malHizmetBilgisiDataGridView_CellEndEdit);
             // 
-            // soyadiLabel
+            // deleteColumnCheckBox
             // 
-            this.soyadiLabel.AutoSize = true;
-            this.soyadiLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.soyadiLabel.Location = new System.Drawing.Point(201, 121);
-            this.soyadiLabel.Name = "soyadiLabel";
-            this.soyadiLabel.Size = new System.Drawing.Size(53, 18);
-            this.soyadiLabel.TabIndex = 3;
-            this.soyadiLabel.Text = "Soyadı";
+            this.deleteColumnCheckBox.HeaderText = "  ";
+            this.deleteColumnCheckBox.Name = "deleteColumnCheckBox";
+            this.deleteColumnCheckBox.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.deleteColumnCheckBox.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.deleteColumnCheckBox.Width = 30;
             // 
-            // adiLabel
+            // malHizmetColumn
             // 
-            this.adiLabel.AutoSize = true;
-            this.adiLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.adiLabel.Location = new System.Drawing.Point(224, 88);
-            this.adiLabel.Name = "adiLabel";
-            this.adiLabel.Size = new System.Drawing.Size(30, 18);
-            this.adiLabel.TabIndex = 2;
-            this.adiLabel.Text = "Adı";
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            this.malHizmetColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            this.malHizmetColumn.HeaderText = "Mal/Hizmet*";
+            this.malHizmetColumn.Name = "malHizmetColumn";
+            this.malHizmetColumn.Width = 150;
             // 
-            // unvanLabel
+            // miktarColumn
             // 
-            this.unvanLabel.AutoSize = true;
-            this.unvanLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.unvanLabel.Location = new System.Drawing.Point(195, 55);
-            this.unvanLabel.Name = "unvanLabel";
-            this.unvanLabel.Size = new System.Drawing.Size(59, 18);
-            this.unvanLabel.TabIndex = 1;
-            this.unvanLabel.Text = "UNVAN";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N0";
+            dataGridViewCellStyle2.NullValue = "0";
+            this.miktarColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.miktarColumn.HeaderText = "Miktar";
+            this.miktarColumn.Name = "miktarColumn";
+            this.miktarColumn.Width = 150;
             // 
-            // vknLabel
+            // birimColumn
             // 
-            this.vknLabel.AutoSize = true;
-            this.vknLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.vknLabel.Location = new System.Drawing.Point(162, 22);
-            this.vknLabel.Name = "vknLabel";
-            this.vknLabel.Size = new System.Drawing.Size(92, 18);
-            this.vknLabel.TabIndex = 0;
-            this.vknLabel.Text = "VKN/TCKN*";
+            this.birimColumn.HeaderText = "Birim*";
+            this.birimColumn.Items.AddRange(new object[] {
+            "-----",
+            "Gün",
+            "Ay",
+            "Yıl",
+            "Saat",
+            "Dakika",
+            "Saniye",
+            "Adet",
+            "Paket",
+            "Kutu",
+            "mg",
+            "g",
+            "kg",
+            "lt",
+            "ton",
+            "Net Ton",
+            "Gross ton",
+            "mm",
+            "cm",
+            "m",
+            "km",
+            "ml",
+            "mm3",
+            "cm2",
+            "cm3",
+            "m2",
+            "m3",
+            "kJ",
+            "cl",
+            "KARAT",
+            "KWH",
+            "MWH",
+            "Ton baş.taşıma kap.",
+            "Brüt kalori",
+            "1000 lt",
+            "Saf alkol lt",
+            "kg.m2",
+            "Hücre adet",
+            "Çift",
+            "1000 m3",
+            "Set",
+            "1000 adet",
+            "SCM",
+            "NCM",
+            "mmBTU",
+            "CM³",
+            "Düzine",
+            "dm2",
+            "dm",
+            "ha"});
+            this.birimColumn.Name = "birimColumn";
+            this.birimColumn.Width = 200;
             // 
-            // adresLabel
+            // birimFiyatiColumn
             // 
-            this.adresLabel.AutoSize = true;
-            this.adresLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.adresLabel.Location = new System.Drawing.Point(207, 187);
-            this.adresLabel.Name = "adresLabel";
-            this.adresLabel.Size = new System.Drawing.Size(47, 18);
-            this.adresLabel.TabIndex = 5;
-            this.adresLabel.Text = "Adres";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N6";
+            dataGridViewCellStyle3.NullValue = "0,000000";
+            this.birimFiyatiColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.birimFiyatiColumn.HeaderText = "Birim Fiyatı";
+            this.birimFiyatiColumn.Name = "birimFiyatiColumn";
+            this.birimFiyatiColumn.Width = 150;
             // 
-            // ulkeLabel
+            // malHizmetTutariColumn
             // 
-            this.ulkeLabel.AutoSize = true;
-            this.ulkeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.ulkeLabel.Location = new System.Drawing.Point(216, 154);
-            this.ulkeLabel.Name = "ulkeLabel";
-            this.ulkeLabel.Size = new System.Drawing.Size(38, 18);
-            this.ulkeLabel.TabIndex = 4;
-            this.ulkeLabel.Text = "Ülke";
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = "0,00";
+            this.malHizmetTutariColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            this.malHizmetTutariColumn.HeaderText = "Mal/Hizmet Tutarı";
+            this.malHizmetTutariColumn.Name = "malHizmetTutariColumn";
+            this.malHizmetTutariColumn.ReadOnly = true;
             // 
-            // vknTextBox
+            // kDVOraniComboBoxColumn
             // 
-            this.vknTextBox.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.vknTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.vknTextBox.Location = new System.Drawing.Point(263, 19);
-            this.vknTextBox.Name = "vknTextBox";
-            this.vknTextBox.Size = new System.Drawing.Size(238, 26);
-            this.vknTextBox.TabIndex = 8;
+            this.kDVOraniComboBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.kDVOraniComboBoxColumn.HeaderText = "KDV Oranı";
+            this.kDVOraniComboBoxColumn.Items.AddRange(new object[] {
+            "%0",
+            "%1",
+            "%8",
+            "%18"});
+            this.kDVOraniComboBoxColumn.Name = "kDVOraniComboBoxColumn";
             // 
-            // unvanTextBox
+            // kdvTutariColumn
             // 
-            this.unvanTextBox.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.unvanTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.unvanTextBox.Location = new System.Drawing.Point(263, 52);
-            this.unvanTextBox.Name = "unvanTextBox";
-            this.unvanTextBox.Size = new System.Drawing.Size(238, 26);
-            this.unvanTextBox.TabIndex = 9;
+            dataGridViewCellStyle5.Format = "N2";
+            dataGridViewCellStyle5.NullValue = "0,00";
+            this.kdvTutariColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            this.kdvTutariColumn.HeaderText = "KDV Tutarı";
+            this.kdvTutariColumn.Name = "kdvTutariColumn";
+            this.kdvTutariColumn.ReadOnly = true;
+            this.kdvTutariColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // soyadıTextBox
+            // aliciBilgileriGroupBox
             // 
-            this.soyadıTextBox.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.soyadıTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.soyadıTextBox.Location = new System.Drawing.Point(263, 118);
-            this.soyadıTextBox.Name = "soyadıTextBox";
-            this.soyadıTextBox.Size = new System.Drawing.Size(238, 26);
-            this.soyadıTextBox.TabIndex = 11;
-            // 
-            // adıTextBox
-            // 
-            this.adıTextBox.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.adıTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.adıTextBox.Location = new System.Drawing.Point(263, 85);
-            this.adıTextBox.Name = "adıTextBox";
-            this.adıTextBox.Size = new System.Drawing.Size(238, 26);
-            this.adıTextBox.TabIndex = 10;
-            // 
-            // adresTextBox
-            // 
-            this.adresTextBox.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.adresTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.adresTextBox.Location = new System.Drawing.Point(263, 184);
-            this.adresTextBox.Multiline = true;
-            this.adresTextBox.Name = "adresTextBox";
-            this.adresTextBox.Size = new System.Drawing.Size(309, 104);
-            this.adresTextBox.TabIndex = 13;
+            this.aliciBilgileriGroupBox.Controls.Add(this.ulkeComboBox);
+            this.aliciBilgileriGroupBox.Controls.Add(this.adresTextBox);
+            this.aliciBilgileriGroupBox.Controls.Add(this.soyadıTextBox);
+            this.aliciBilgileriGroupBox.Controls.Add(this.adıTextBox);
+            this.aliciBilgileriGroupBox.Controls.Add(this.unvanTextBox);
+            this.aliciBilgileriGroupBox.Controls.Add(this.vknTextBox);
+            this.aliciBilgileriGroupBox.Controls.Add(this.adresLabel);
+            this.aliciBilgileriGroupBox.Controls.Add(this.ulkeLabel);
+            this.aliciBilgileriGroupBox.Controls.Add(this.soyadiLabel);
+            this.aliciBilgileriGroupBox.Controls.Add(this.adiLabel);
+            this.aliciBilgileriGroupBox.Controls.Add(this.unvanLabel);
+            this.aliciBilgileriGroupBox.Controls.Add(this.vknLabel);
+            this.aliciBilgileriGroupBox.Font = new System.Drawing.Font("Roboto", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.aliciBilgileriGroupBox.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.aliciBilgileriGroupBox.Location = new System.Drawing.Point(6, 168);
+            this.aliciBilgileriGroupBox.Name = "aliciBilgileriGroupBox";
+            this.aliciBilgileriGroupBox.Size = new System.Drawing.Size(763, 296);
+            this.aliciBilgileriGroupBox.TabIndex = 8;
+            this.aliciBilgileriGroupBox.TabStop = false;
+            this.aliciBilgileriGroupBox.Text = "Alıcı Bilgileri";
             // 
             // ulkeComboBox
             // 
@@ -763,60 +841,243 @@ namespace E_Arşiv_Fatura
             this.ulkeComboBox.Size = new System.Drawing.Size(238, 26);
             this.ulkeComboBox.TabIndex = 14;
             // 
-            // groupBox2
+            // adresTextBox
             // 
-            this.groupBox2.Controls.Add(this.irsaliyeTarihiDateTimePicker);
-            this.groupBox2.Controls.Add(this.irsaliyeNumarasiTextBox);
-            this.groupBox2.Controls.Add(this.irsaliyeTarihiLabel);
-            this.groupBox2.Controls.Add(this.irsaliyeNumarasiLabel);
-            this.groupBox2.Font = new System.Drawing.Font("Roboto", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.groupBox2.Location = new System.Drawing.Point(6, 470);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(763, 85);
-            this.groupBox2.TabIndex = 15;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Alıcı Bilgileri";
+            this.adresTextBox.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.adresTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.adresTextBox.Location = new System.Drawing.Point(263, 184);
+            this.adresTextBox.Multiline = true;
+            this.adresTextBox.Name = "adresTextBox";
+            this.adresTextBox.Size = new System.Drawing.Size(309, 104);
+            this.adresTextBox.TabIndex = 13;
             // 
-            // irsaliyeNumarasiTextBox
+            // soyadıTextBox
             // 
-            this.irsaliyeNumarasiTextBox.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.irsaliyeNumarasiTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.irsaliyeNumarasiTextBox.Location = new System.Drawing.Point(263, 19);
-            this.irsaliyeNumarasiTextBox.Name = "irsaliyeNumarasiTextBox";
-            this.irsaliyeNumarasiTextBox.Size = new System.Drawing.Size(200, 26);
-            this.irsaliyeNumarasiTextBox.TabIndex = 8;
+            this.soyadıTextBox.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.soyadıTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.soyadıTextBox.Location = new System.Drawing.Point(263, 118);
+            this.soyadıTextBox.Name = "soyadıTextBox";
+            this.soyadıTextBox.Size = new System.Drawing.Size(238, 26);
+            this.soyadıTextBox.TabIndex = 11;
             // 
-            // irsaliyeTarihiLabel
+            // adıTextBox
             // 
-            this.irsaliyeTarihiLabel.AutoSize = true;
-            this.irsaliyeTarihiLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.irsaliyeTarihiLabel.Location = new System.Drawing.Point(156, 55);
-            this.irsaliyeTarihiLabel.Name = "irsaliyeTarihiLabel";
-            this.irsaliyeTarihiLabel.Size = new System.Drawing.Size(98, 18);
-            this.irsaliyeTarihiLabel.TabIndex = 1;
-            this.irsaliyeTarihiLabel.Text = "İrsaliye Tarihi";
+            this.adıTextBox.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.adıTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.adıTextBox.Location = new System.Drawing.Point(263, 85);
+            this.adıTextBox.Name = "adıTextBox";
+            this.adıTextBox.Size = new System.Drawing.Size(238, 26);
+            this.adıTextBox.TabIndex = 10;
             // 
-            // irsaliyeNumarasiLabel
+            // unvanTextBox
             // 
-            this.irsaliyeNumarasiLabel.AutoSize = true;
-            this.irsaliyeNumarasiLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.irsaliyeNumarasiLabel.Location = new System.Drawing.Point(128, 22);
-            this.irsaliyeNumarasiLabel.Name = "irsaliyeNumarasiLabel";
-            this.irsaliyeNumarasiLabel.Size = new System.Drawing.Size(126, 18);
-            this.irsaliyeNumarasiLabel.TabIndex = 0;
-            this.irsaliyeNumarasiLabel.Text = "İrsaliye Numarası";
+            this.unvanTextBox.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.unvanTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.unvanTextBox.Location = new System.Drawing.Point(263, 52);
+            this.unvanTextBox.Name = "unvanTextBox";
+            this.unvanTextBox.Size = new System.Drawing.Size(238, 26);
+            this.unvanTextBox.TabIndex = 9;
             // 
-            // irsaliyeTarihiDateTimePicker
+            // vknTextBox
             // 
-            this.irsaliyeTarihiDateTimePicker.CalendarFont = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.irsaliyeTarihiDateTimePicker.CalendarForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.irsaliyeTarihiDateTimePicker.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.irsaliyeTarihiDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.irsaliyeTarihiDateTimePicker.Location = new System.Drawing.Point(263, 49);
-            this.irsaliyeTarihiDateTimePicker.Name = "irsaliyeTarihiDateTimePicker";
-            this.irsaliyeTarihiDateTimePicker.Size = new System.Drawing.Size(200, 26);
-            this.irsaliyeTarihiDateTimePicker.TabIndex = 9;
+            this.vknTextBox.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.vknTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.vknTextBox.Location = new System.Drawing.Point(263, 19);
+            this.vknTextBox.Name = "vknTextBox";
+            this.vknTextBox.Size = new System.Drawing.Size(238, 26);
+            this.vknTextBox.TabIndex = 8;
+            // 
+            // adresLabel
+            // 
+            this.adresLabel.AutoSize = true;
+            this.adresLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.adresLabel.Location = new System.Drawing.Point(207, 187);
+            this.adresLabel.Name = "adresLabel";
+            this.adresLabel.Size = new System.Drawing.Size(47, 18);
+            this.adresLabel.TabIndex = 5;
+            this.adresLabel.Text = "Adres";
+            // 
+            // ulkeLabel
+            // 
+            this.ulkeLabel.AutoSize = true;
+            this.ulkeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.ulkeLabel.Location = new System.Drawing.Point(216, 154);
+            this.ulkeLabel.Name = "ulkeLabel";
+            this.ulkeLabel.Size = new System.Drawing.Size(38, 18);
+            this.ulkeLabel.TabIndex = 4;
+            this.ulkeLabel.Text = "Ülke";
+            // 
+            // soyadiLabel
+            // 
+            this.soyadiLabel.AutoSize = true;
+            this.soyadiLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.soyadiLabel.Location = new System.Drawing.Point(201, 121);
+            this.soyadiLabel.Name = "soyadiLabel";
+            this.soyadiLabel.Size = new System.Drawing.Size(53, 18);
+            this.soyadiLabel.TabIndex = 3;
+            this.soyadiLabel.Text = "Soyadı";
+            // 
+            // adiLabel
+            // 
+            this.adiLabel.AutoSize = true;
+            this.adiLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.adiLabel.Location = new System.Drawing.Point(224, 88);
+            this.adiLabel.Name = "adiLabel";
+            this.adiLabel.Size = new System.Drawing.Size(30, 18);
+            this.adiLabel.TabIndex = 2;
+            this.adiLabel.Text = "Adı";
+            // 
+            // unvanLabel
+            // 
+            this.unvanLabel.AutoSize = true;
+            this.unvanLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.unvanLabel.Location = new System.Drawing.Point(195, 55);
+            this.unvanLabel.Name = "unvanLabel";
+            this.unvanLabel.Size = new System.Drawing.Size(59, 18);
+            this.unvanLabel.TabIndex = 1;
+            this.unvanLabel.Text = "UNVAN";
+            // 
+            // vknLabel
+            // 
+            this.vknLabel.AutoSize = true;
+            this.vknLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.vknLabel.Location = new System.Drawing.Point(162, 22);
+            this.vknLabel.Name = "vknLabel";
+            this.vknLabel.Size = new System.Drawing.Size(92, 18);
+            this.vknLabel.TabIndex = 0;
+            this.vknLabel.Text = "VKN/TCKN*";
+            // 
+            // duzenlenmeTarihiLabel
+            // 
+            this.duzenlenmeTarihiLabel.Controls.Add(this.duzenlenmeTarihiDateTimePicker);
+            this.duzenlenmeTarihiLabel.Controls.Add(this.duzenlenmeSaatiDateTimePicker);
+            this.duzenlenmeTarihiLabel.Controls.Add(this.label1);
+            this.duzenlenmeTarihiLabel.Controls.Add(this.ettnSonucLabel);
+            this.duzenlenmeTarihiLabel.Controls.Add(this.duzenlenmeSaatiLabel);
+            this.duzenlenmeTarihiLabel.Controls.Add(this.label4);
+            this.duzenlenmeTarihiLabel.Controls.Add(this.belgeNumarasiLabel);
+            this.duzenlenmeTarihiLabel.Controls.Add(this.ettnLabel);
+            this.duzenlenmeTarihiLabel.Font = new System.Drawing.Font("Roboto", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.duzenlenmeTarihiLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.duzenlenmeTarihiLabel.Location = new System.Drawing.Point(6, 6);
+            this.duzenlenmeTarihiLabel.Name = "duzenlenmeTarihiLabel";
+            this.duzenlenmeTarihiLabel.Size = new System.Drawing.Size(763, 156);
+            this.duzenlenmeTarihiLabel.TabIndex = 0;
+            this.duzenlenmeTarihiLabel.TabStop = false;
+            this.duzenlenmeTarihiLabel.Text = "Fatura Bilgileri";
+            // 
+            // duzenlenmeTarihiDateTimePicker
+            // 
+            this.duzenlenmeTarihiDateTimePicker.CalendarFont = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.duzenlenmeTarihiDateTimePicker.CalendarForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.duzenlenmeTarihiDateTimePicker.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.duzenlenmeTarihiDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.duzenlenmeTarihiDateTimePicker.Location = new System.Drawing.Point(263, 86);
+            this.duzenlenmeTarihiDateTimePicker.Name = "duzenlenmeTarihiDateTimePicker";
+            this.duzenlenmeTarihiDateTimePicker.Size = new System.Drawing.Size(200, 26);
+            this.duzenlenmeTarihiDateTimePicker.TabIndex = 7;
+            // 
+            // duzenlenmeSaatiDateTimePicker
+            // 
+            this.duzenlenmeSaatiDateTimePicker.CalendarForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.duzenlenmeSaatiDateTimePicker.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.duzenlenmeSaatiDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.duzenlenmeSaatiDateTimePicker.Location = new System.Drawing.Point(263, 121);
+            this.duzenlenmeSaatiDateTimePicker.Name = "duzenlenmeSaatiDateTimePicker";
+            this.duzenlenmeSaatiDateTimePicker.ShowUpDown = true;
+            this.duzenlenmeSaatiDateTimePicker.Size = new System.Drawing.Size(200, 26);
+            this.duzenlenmeSaatiDateTimePicker.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.label1.Location = new System.Drawing.Point(260, 57);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(68, 18);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "----------";
+            // 
+            // ettnSonucLabel
+            // 
+            this.ettnSonucLabel.AutoSize = true;
+            this.ettnSonucLabel.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.ettnSonucLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.ettnSonucLabel.Location = new System.Drawing.Point(260, 22);
+            this.ettnSonucLabel.Name = "ettnSonucLabel";
+            this.ettnSonucLabel.Size = new System.Drawing.Size(274, 18);
+            this.ettnSonucLabel.TabIndex = 4;
+            this.ettnSonucLabel.Text = "27c9ec99-f910-4181-a1f6-4ad94d7cd5cb";
+            // 
+            // duzenlenmeSaatiLabel
+            // 
+            this.duzenlenmeSaatiLabel.AutoSize = true;
+            this.duzenlenmeSaatiLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.duzenlenmeSaatiLabel.Location = new System.Drawing.Point(125, 127);
+            this.duzenlenmeSaatiLabel.Name = "duzenlenmeSaatiLabel";
+            this.duzenlenmeSaatiLabel.Size = new System.Drawing.Size(129, 18);
+            this.duzenlenmeSaatiLabel.TabIndex = 3;
+            this.duzenlenmeSaatiLabel.Text = "Düzenlenme Saati";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.label4.Location = new System.Drawing.Point(122, 92);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(132, 18);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Düzenlenme Tarihi";
+            // 
+            // belgeNumarasiLabel
+            // 
+            this.belgeNumarasiLabel.AutoSize = true;
+            this.belgeNumarasiLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.belgeNumarasiLabel.Location = new System.Drawing.Point(138, 57);
+            this.belgeNumarasiLabel.Name = "belgeNumarasiLabel";
+            this.belgeNumarasiLabel.Size = new System.Drawing.Size(116, 18);
+            this.belgeNumarasiLabel.TabIndex = 1;
+            this.belgeNumarasiLabel.Text = "Belge Numarası";
+            // 
+            // ettnLabel
+            // 
+            this.ettnLabel.AutoSize = true;
+            this.ettnLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.ettnLabel.Location = new System.Drawing.Point(209, 22);
+            this.ettnLabel.Name = "ettnLabel";
+            this.ettnLabel.Size = new System.Drawing.Size(45, 18);
+            this.ettnLabel.TabIndex = 0;
+            this.ettnLabel.Text = "ETTN";
+            // 
+            // olusturulanFaturalarTabPage
+            // 
+            this.olusturulanFaturalarTabPage.Location = new System.Drawing.Point(4, 28);
+            this.olusturulanFaturalarTabPage.Name = "olusturulanFaturalarTabPage";
+            this.olusturulanFaturalarTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.olusturulanFaturalarTabPage.Size = new System.Drawing.Size(795, 621);
+            this.olusturulanFaturalarTabPage.TabIndex = 2;
+            this.olusturulanFaturalarTabPage.Text = "Oluşturulan Faturalar";
+            this.olusturulanFaturalarTabPage.UseVisualStyleBackColor = true;
+            // 
+            // notGroupBox
+            // 
+            this.notGroupBox.Controls.Add(this.textBox1);
+            this.notGroupBox.Font = new System.Drawing.Font("Roboto", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.notGroupBox.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.notGroupBox.Location = new System.Drawing.Point(6, 893);
+            this.notGroupBox.Name = "notGroupBox";
+            this.notGroupBox.Size = new System.Drawing.Size(763, 225);
+            this.notGroupBox.TabIndex = 27;
+            this.notGroupBox.TabStop = false;
+            this.notGroupBox.Text = "Not";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 17);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(751, 199);
+            this.textBox1.TabIndex = 0;
             // 
             // mainScreenForm
             // 
@@ -839,12 +1100,16 @@ namespace E_Arşiv_Fatura
             this.islemlerTabControl.ResumeLayout(false);
             this.faturaOlusturTabPage.ResumeLayout(false);
             this.faturaOlusturPanel.ResumeLayout(false);
+            this.toplamlarGroupBox.ResumeLayout(false);
+            this.toplamlarGroupBox.PerformLayout();
+            this.malHizmetBilgileriGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.malHizmetBilgisiDataGridView)).EndInit();
+            this.aliciBilgileriGroupBox.ResumeLayout(false);
+            this.aliciBilgileriGroupBox.PerformLayout();
             this.duzenlenmeTarihiLabel.ResumeLayout(false);
             this.duzenlenmeTarihiLabel.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.notGroupBox.ResumeLayout(false);
+            this.notGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -874,7 +1139,7 @@ namespace E_Arşiv_Fatura
         private System.Windows.Forms.Label ettnSonucLabel;
         private System.Windows.Forms.DateTimePicker duzenlenmeSaatiDateTimePicker;
         private System.Windows.Forms.DateTimePicker duzenlenmeTarihiDateTimePicker;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox aliciBilgileriGroupBox;
         private System.Windows.Forms.TextBox adresTextBox;
         private System.Windows.Forms.TextBox soyadıTextBox;
         private System.Windows.Forms.TextBox adıTextBox;
@@ -887,10 +1152,26 @@ namespace E_Arşiv_Fatura
         private System.Windows.Forms.Label unvanLabel;
         private System.Windows.Forms.Label vknLabel;
         private System.Windows.Forms.ComboBox ulkeComboBox;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DateTimePicker irsaliyeTarihiDateTimePicker;
-        private System.Windows.Forms.TextBox irsaliyeNumarasiTextBox;
-        private System.Windows.Forms.Label irsaliyeTarihiLabel;
-        private System.Windows.Forms.Label irsaliyeNumarasiLabel;
+        private System.Windows.Forms.GroupBox malHizmetBilgileriGroupBox;
+        private System.Windows.Forms.DataGridView malHizmetBilgisiDataGridView;
+        private System.Windows.Forms.Button satirSilButton;
+        private System.Windows.Forms.Button satirEkleButton;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn deleteColumnCheckBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn malHizmetColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn miktarColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn birimColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn birimFiyatiColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn malHizmetTutariColumn;
+        private System.Windows.Forms.DataGridViewComboBoxColumn kDVOraniComboBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn kdvTutariColumn;
+        private System.Windows.Forms.GroupBox toplamlarGroupBox;
+        private System.Windows.Forms.Label vergilerDahilToplamTutarSonucLabel;
+        private System.Windows.Forms.Label hesaplananKdvSonucLabel;
+        private System.Windows.Forms.Label malHizmetToplamTutarıSonucLabel;
+        private System.Windows.Forms.Label vergilerDahilToplamTutarLabel;
+        private System.Windows.Forms.Label hesaplananKdvLabel;
+        private System.Windows.Forms.Label malHizmetToplamTutarLabel;
+        private System.Windows.Forms.GroupBox notGroupBox;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
