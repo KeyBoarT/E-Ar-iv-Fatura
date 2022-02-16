@@ -9,6 +9,10 @@ namespace E_Arşiv_Fatura
         public mainScreenForm()
         {
             InitializeComponent();
+            this.faturaBilgileriGroupBox.Click += new EventHandler(this.faturaBilgileriGroupBox_Click);
+            this.aliciBilgileriGroupBox.Click += new EventHandler(this.aliciBilgileriGroupBox_Click);
+            this.toplamlarGroupBox.Click += new EventHandler(this.toplamlarGroupBox_Click);
+
         }
 
         IWebDriver driver = loginScreenForm.driver;
@@ -67,6 +71,8 @@ namespace E_Arşiv_Fatura
                 ettnSonucLabel.Text = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/fieldset/table/tr[1]/td[2]/span")).Text;
             duzenlenmeTarihiDateTimePicker.Value = DateTime.Now;
             duzenlenmeSaatiDateTimePicker.Value = DateTime.Now;
+            duzenlenmeTarihiDateTimePicker.MaxDate = DateTime.Now;
+            duzenlenmeTarihiDateTimePicker.MinDate = new DateTime(DateTime.Now.Year - 10, 1, 1);
         }
 
         private void olusturulanFaturalarButton_Click(object sender, EventArgs e)
@@ -75,10 +81,12 @@ namespace E_Arşiv_Fatura
             islemlerTabControl.TabPages.Add(olusturulanFaturalarTabPage);
         }
 
-        int sayac = 0;
         private void satirEkleButton_Click(object sender, EventArgs e)
         {
             malHizmetBilgisiDataGridView.Rows.Add();
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IWebElement satirEkleButton = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[3]/div/div/div/div[1]/div/div/input"));
+            js.ExecuteScript("arguments[0].click()", satirEkleButton);
         }
 
         private void malHizmetBilgisiDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -98,7 +106,7 @@ namespace E_Arşiv_Fatura
                     {
                         miktar = Convert.ToInt32(strmiktar);
                     }
-                    
+
                     catch (FormatException)
                     {
                         MessageBox.Show("Lütfen sadece sayı giriniz !", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -118,7 +126,6 @@ namespace E_Arşiv_Fatura
 
                 if (strbirimFiyati != null && strbirimFiyati != "")
                 {
-                    
                     try
                     {
                         birimFiyati = Convert.ToDouble(strbirimFiyati);
@@ -146,17 +153,22 @@ namespace E_Arşiv_Fatura
                 }
                 malHizmetBilgisiDataGridView.Rows[e.RowIndex].Cells[5].Value = miktar * birimFiyati;
                 malHizmetBilgisiDataGridView.Rows[e.RowIndex].Cells[7].Value = (miktar * birimFiyati) * kdvOrani / 100;
-                double malHizmetToplamTutari = 0;
-                double hesaplananKdv = 0;
-                for (int i = malHizmetBilgisiDataGridView.RowCount -1; i >= 0; i--)
-                {
-                    malHizmetToplamTutari += Convert.ToDouble(malHizmetBilgisiDataGridView.Rows[i].Cells[5].Value);
-                    hesaplananKdv += Convert.ToDouble(malHizmetBilgisiDataGridView.Rows[i].Cells[7].Value);
-                }
-                malHizmetToplamTutarıSonucLabel.Text = malHizmetToplamTutari.ToString();
-                hesaplananKdvSonucLabel.Text = hesaplananKdv.ToString();
-                vergilerDahilToplamTutarSonucLabel.Text = (malHizmetToplamTutari + hesaplananKdv).ToString();
+                ToplamlariHesaplaYazdir();
             }
+        }
+
+        private void ToplamlariHesaplaYazdir()
+        {
+            double malHizmetToplamTutari = 0;
+            double hesaplananKdv = 0;
+            for (int i = malHizmetBilgisiDataGridView.RowCount - 1; i >= 0; i--)
+            {
+                malHizmetToplamTutari += Convert.ToDouble(malHizmetBilgisiDataGridView.Rows[i].Cells[5].Value);
+                hesaplananKdv += Convert.ToDouble(malHizmetBilgisiDataGridView.Rows[i].Cells[7].Value);
+            }
+            malHizmetToplamTutarıSonucLabel.Text = malHizmetToplamTutari.ToString();
+            hesaplananKdvSonucLabel.Text = hesaplananKdv.ToString();
+            vergilerDahilToplamTutarSonucLabel.Text = (malHizmetToplamTutari + hesaplananKdv).ToString();
         }
 
         private void satirSilButton_Click(object sender, EventArgs e)
@@ -168,6 +180,130 @@ namespace E_Arşiv_Fatura
                     malHizmetBilgisiDataGridView.Rows.Remove(malHizmetBilgisiDataGridView.Rows[i]);
                 }
             }
+            ToplamlariHesaplaYazdir();
+        }
+
+        private void vknTextBox_Leave(object sender, EventArgs e)
+        {
+            driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[1]/td[2]/input")).SendKeys(vknTextBox.Text);
+            driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[2]/td[2]/input")).Click();
+            System.Threading.Thread.Sleep(1000);
+            string unvan = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[2]/td[2]/input")).GetAttribute("value");
+            string ad = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[3]/td[2]/input")).GetAttribute("value");
+            string soyad = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[4]/td[2]/input")).GetAttribute("value");
+            string vergiDairesi = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[5]/td[2]/input")).GetAttribute("value");
+            unvanTextBox.Text = unvan;
+            adıTextBox.Text = ad;
+            soyadıTextBox.Text = soyad;
+            vergiDairesiTextBox.Text = vergiDairesi;
+        }
+
+        private void mainScreenMenuPanel_Click(object sender, EventArgs e)
+        {
+            mainScreenMenuPictureBox.Focus();
+        }
+
+        private void mainScreenForm_Click(object sender, EventArgs e)
+        {
+            mainScreenMenuPictureBox.Focus();
+        }
+
+        private void faturaBilgileriGroupBox_Click(object sender, EventArgs e)
+        {
+            mainScreenMenuPictureBox.Focus();
+        }
+
+        private void aliciBilgileriGroupBox_Click(object sender, EventArgs e)
+        {
+            mainScreenMenuPictureBox.Focus();
+        }
+
+        private void toplamlarGroupBox_Click(object sender, EventArgs e)
+        {
+            mainScreenMenuPictureBox.Focus();
+        }
+
+        private void kaydetButton_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IWebElement duzenlenmeTarihi = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/fieldset/table/tr[3]/td[2]/div/input"));
+            js.ExecuteScript("arguments[0].removeAttribute('disabled', 'disabled')", duzenlenmeTarihi);
+            duzenlenmeTarihi.Click();
+            IWebElement duzenlemeSaati = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/fieldset/table/tr[4]/td[2]/div/input"));
+            IWebElement vknEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[1]/td[2]/input"));
+            IWebElement unvanEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[2]/td[2]/input"));
+            IWebElement adEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[3]/td[2]/input"));
+            IWebElement soyadEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[4]/td[2]/input"));
+            IWebElement vergiDairesiEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[5]/td[2]/input"));
+            IWebElement adresEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[7]/td[2]/textarea"));
+            int secilenUlke = ulkeComboBox.SelectedIndex;
+            IWebElement notEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[5]/div/div/fieldset/div/div/div/textarea"));
+            duzenlemeSaati.Clear();
+            vknEntry.Clear();
+            unvanEntry.Clear();
+            adEntry.Clear();
+            soyadEntry.Clear();
+            vergiDairesiEntry.Clear();
+            adresEntry.Clear();
+            notEntry.Clear();
+            duzenlenmeTarihi.SendKeys(duzenlenmeTarihiDateTimePicker.Text);
+            duzenlemeSaati.SendKeys(duzenlenmeSaatiDateTimePicker.Text);
+            vknEntry.SendKeys(vknTextBox.Text);
+            unvanEntry.SendKeys(unvanTextBox.Text);
+            adEntry.SendKeys(adıTextBox.Text);
+            soyadEntry.SendKeys(soyadıTextBox.Text);
+            vergiDairesiEntry.SendKeys(vergiDairesiTextBox.Text);
+            if (secilenUlke == -1)
+            {
+                MessageBox.Show("Ülke alanı boş olamaz !", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[6]/td[2]/select/option[" + (secilenUlke + 1) + "]")).Click();
+            }
+            adresEntry.SendKeys(adresTextBox.Text);
+            for (int i = 0; i < malHizmetBilgisiDataGridView.RowCount; i++)
+            {
+                
+                IWebElement malHizmetEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[4]/input"));
+                IWebElement miktarEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[5]/input"));
+                DataGridViewComboBoxCell birimComboBox = (DataGridViewComboBoxCell)malHizmetBilgisiDataGridView.Rows[i].Cells[3];
+                IWebElement birimFiyatiEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[7]/input"));
+                DataGridViewComboBoxCell kdvYuzdeComboBox = (DataGridViewComboBoxCell)malHizmetBilgisiDataGridView.Rows[i].Cells[6];
+                malHizmetEntry.Clear();
+                miktarEntry.Clear();
+                birimFiyatiEntry.Clear();
+                string kdvYuzdesi = Convert.ToString(kdvYuzdeComboBox.Items.IndexOf(kdvYuzdeComboBox.Value));
+                string birim = Convert.ToString(birimComboBox.Items.IndexOf(birimComboBox.Value));
+                string malHizmet = Convert.ToString(malHizmetBilgisiDataGridView.Rows[i].Cells[1].Value);
+                string miktar = Convert.ToString(malHizmetBilgisiDataGridView.Rows[i].Cells[2].Value);
+                string birimFiyati = Convert.ToString(malHizmetBilgisiDataGridView.Rows[i].Cells[4].Value);
+                
+                
+                if (kdvYuzdesi != null && kdvYuzdesi != "")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[11]/select/option[" + (Convert.ToInt32(kdvYuzdesi) + 1) + "]")).Click();
+                }
+                if (birim != null && birim != "")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[6]/select/option[" + (Convert.ToInt32(birim) + 1) + "]")).Click();
+                }
+                if (malHizmet != null && malHizmet != "")
+                {
+                    malHizmetEntry.SendKeys(malHizmet);
+                }
+                if (miktar != null && miktar != "")
+                {
+                    miktarEntry.SendKeys(miktar);
+                }
+                if (birimFiyati != null && birimFiyati != "")
+                {
+                    birimFiyatiEntry.SendKeys(birimFiyati);
+                }
+            }
+            notEntry.SendKeys(notTextBox.Text);
         }
     }
 }
