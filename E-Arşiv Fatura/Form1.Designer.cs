@@ -157,6 +157,7 @@ namespace E_Arşiv_Fatura
             this.Name = "loginScreenForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "E-Arşiv Fatura";
+            this.Load += new System.EventHandler(this.loginScreenForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.loginScreenForm_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.loginScreenForm_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.loginScreenForm_MouseUp);

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using OpenQA.Selenium;
+using System.Data.OleDb;
+using System.Collections;
+using System.Collections.ObjectModel;
 
 namespace E_Arşiv_Fatura
 {
@@ -12,7 +15,6 @@ namespace E_Arşiv_Fatura
             this.faturaBilgileriGroupBox.Click += new EventHandler(this.faturaBilgileriGroupBox_Click);
             this.aliciBilgileriGroupBox.Click += new EventHandler(this.aliciBilgileriGroupBox_Click);
             this.toplamlarGroupBox.Click += new EventHandler(this.toplamlarGroupBox_Click);
-
         }
 
         IWebDriver driver = loginScreenForm.driver;
@@ -69,24 +71,62 @@ namespace E_Arşiv_Fatura
             islemlerTabControl.TabPages.Add(faturaOlusturTabPage);
             if (wait.TryFindByXPath(2, "/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/fieldset/table/tr[1]/td[2]/span"))
                 ettnSonucLabel.Text = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/fieldset/table/tr[1]/td[2]/span")).Text;
-            duzenlenmeTarihiDateTimePicker.Value = DateTime.Now;
             duzenlenmeSaatiDateTimePicker.Value = DateTime.Now;
             duzenlenmeTarihiDateTimePicker.MaxDate = DateTime.Now;
+            try
+            {
+                duzenlenmeTarihiDateTimePicker.Value = DateTime.Now;
+            }
+
+            catch
+            {
+                duzenlenmeTarihiDateTimePicker.MaxDate = DateTime.Now;
+                duzenlenmeTarihiDateTimePicker.Value = DateTime.Now;
+            }
+            
+            duzenlenmeTarihiDateTimePicker.CustomFormat = "dd-MM-yyyy";
             duzenlenmeTarihiDateTimePicker.MinDate = new DateTime(DateTime.Now.Year - 10, 1, 1);
+            KayitlariListele();
+        }
+        private void KayitlariListele()
+        {
+            DataBase db = new DataBase("Microsoft.ACE.OLEDB.12.0;", Application.StartupPath, "KayitliMusteriler.accdb");
+            db.dbBaglanti();
+            OleDbCommand cmd = new OleDbCommand();
+            cmd.Connection = db.baglanti;
+            cmd.CommandText = "Select * from Musteriler";
+            db.baglanti.Open();
+            OleDbDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                if (dr["unvan"].ToString().Length > 1)
+                    kayıtlıMusterilerComboBox.Items.Add(dr["unvan"].ToString());
+                else
+                    kayıtlıMusterilerComboBox.Items.Add(dr["ad"].ToString() + " " + dr["soyad"].ToString());
+                sayacCombobox.Items.Add(dr["tc_kimlik_numarasi"]);
+            }
+            db.baglanti.Close();
         }
 
         private void olusturulanFaturalarButton_Click(object sender, EventArgs e)
         {
             islemlerTabControl.TabPages.Clear();
             islemlerTabControl.TabPages.Add(olusturulanFaturalarTabPage);
+            DataBase db = new DataBase("Microsoft.ACE.OLEDB.12.0;", Application.StartupPath, "KayitliMusteriler.accdb");
+            db.dbBaglanti();
+            
+
         }
 
         private void satirEkleButton_Click(object sender, EventArgs e)
         {
+            satirEkleButton.Enabled = false;
             malHizmetBilgisiDataGridView.Rows.Add();
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            IWebElement satirEkleButton = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[3]/div/div/div/div[1]/div/div/input"));
-            js.ExecuteScript("arguments[0].click()", satirEkleButton);
+            IWebElement satirEkleButtonElement = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[3]/div/div/div/div[1]/div/div/input"));
+            js.ExecuteScript("arguments[0].click()", satirEkleButtonElement);
+            System.Threading.Thread.Sleep(500);
+            satirEkleButton.Enabled = true;
         }
 
         private void malHizmetBilgisiDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -173,18 +213,25 @@ namespace E_Arşiv_Fatura
 
         private void satirSilButton_Click(object sender, EventArgs e)
         {
+            ReadOnlyCollection<IWebElement> CheckBoxs = driver.FindElements(By.ClassName("csc-table-select"));
             for (int i = malHizmetBilgisiDataGridView.RowCount - 1; i >= 0; i--)
             {
                 if (malHizmetBilgisiDataGridView.Rows[i].Cells[0].Value != null)
                 {
                     malHizmetBilgisiDataGridView.Rows.Remove(malHizmetBilgisiDataGridView.Rows[i]);
+                    IWebElement selectedCheckBox = CheckBoxs[i];
+                    IWebElement selectedCheckBoxsInput = selectedCheckBox.FindElement(By.XPath(".//*"));
+                    selectedCheckBoxsInput.Click();
                 }
             }
+            IWebElement DeleteButton = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[3]/div/div/div/div[2]/div/div/input"));
+            DeleteButton.Click();
             ToplamlariHesaplaYazdir();
         }
 
         private void vknTextBox_Leave(object sender, EventArgs e)
         {
+            driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[1]/td[2]/input")).Clear();
             driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[1]/td[2]/input")).SendKeys(vknTextBox.Text);
             driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[2]/td[2]/input")).Click();
             System.Threading.Thread.Sleep(1000);
@@ -192,10 +239,12 @@ namespace E_Arşiv_Fatura
             string ad = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[3]/td[2]/input")).GetAttribute("value");
             string soyad = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[4]/td[2]/input")).GetAttribute("value");
             string vergiDairesi = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[5]/td[2]/input")).GetAttribute("value");
+            string adres = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[7]/td[2]/textarea")).GetAttribute("value");
             unvanTextBox.Text = unvan;
             adıTextBox.Text = ad;
             soyadıTextBox.Text = soyad;
             vergiDairesiTextBox.Text = vergiDairesi;
+            adresTextBox.Text = adres;
         }
 
         private void mainScreenMenuPanel_Click(object sender, EventArgs e)
@@ -226,11 +275,11 @@ namespace E_Arşiv_Fatura
         private void kaydetButton_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
+            #region Web Process
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            IWebElement duzenlenmeTarihi = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/fieldset/table/tr[3]/td[2]/div/input"));
-            js.ExecuteScript("arguments[0].removeAttribute('disabled', 'disabled')", duzenlenmeTarihi);
-            duzenlenmeTarihi.Click();
-            IWebElement duzenlemeSaati = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/fieldset/table/tr[4]/td[2]/div/input"));
+            IWebElement duzenlenmeTarihiEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/fieldset/table/tr[3]/td[2]/div/input"));
+            js.ExecuteScript("arguments[0].removeAttribute('disabled', 'disabled')", duzenlenmeTarihiEntry);
+            IWebElement duzenlemeSaatiEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/fieldset/table/tr[4]/td[2]/div/input"));
             IWebElement vknEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[1]/td[2]/input"));
             IWebElement unvanEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[2]/td[2]/input"));
             IWebElement adEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[3]/td[2]/input"));
@@ -239,7 +288,7 @@ namespace E_Arşiv_Fatura
             IWebElement adresEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[7]/td[2]/textarea"));
             int secilenUlke = ulkeComboBox.SelectedIndex;
             IWebElement notEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[5]/div/div/fieldset/div/div/div/textarea"));
-            duzenlemeSaati.Clear();
+            duzenlemeSaatiEntry.Clear();
             vknEntry.Clear();
             unvanEntry.Clear();
             adEntry.Clear();
@@ -247,8 +296,10 @@ namespace E_Arşiv_Fatura
             vergiDairesiEntry.Clear();
             adresEntry.Clear();
             notEntry.Clear();
-            duzenlenmeTarihi.SendKeys(duzenlenmeTarihiDateTimePicker.Text);
-            duzenlemeSaati.SendKeys(duzenlenmeSaatiDateTimePicker.Text);
+            duzenlenmeTarihiEntry.Click();
+            duzenlenmeTarihiEntry.SendKeys(duzenlenmeTarihiDateTimePicker.Text);
+            duzenlemeSaatiEntry.Click();
+            duzenlemeSaatiEntry.SendKeys(duzenlenmeSaatiDateTimePicker.Text);
             vknEntry.SendKeys(vknTextBox.Text);
             unvanEntry.SendKeys(unvanTextBox.Text);
             adEntry.SendKeys(adıTextBox.Text);
@@ -266,7 +317,6 @@ namespace E_Arşiv_Fatura
             adresEntry.SendKeys(adresTextBox.Text);
             for (int i = 0; i < malHizmetBilgisiDataGridView.RowCount; i++)
             {
-                
                 IWebElement malHizmetEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[4]/input"));
                 IWebElement miktarEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[5]/input"));
                 DataGridViewComboBoxCell birimComboBox = (DataGridViewComboBoxCell)malHizmetBilgisiDataGridView.Rows[i].Cells[3];
@@ -275,20 +325,18 @@ namespace E_Arşiv_Fatura
                 malHizmetEntry.Clear();
                 miktarEntry.Clear();
                 birimFiyatiEntry.Clear();
-                string kdvYuzdesi = Convert.ToString(kdvYuzdeComboBox.Items.IndexOf(kdvYuzdeComboBox.Value));
-                string birim = Convert.ToString(birimComboBox.Items.IndexOf(birimComboBox.Value));
+                string kdvYuzdesi = Convert.ToString(kdvYuzdeComboBox.Value);
+                string birim = Convert.ToString(birimComboBox.Value);
                 string malHizmet = Convert.ToString(malHizmetBilgisiDataGridView.Rows[i].Cells[1].Value);
                 string miktar = Convert.ToString(malHizmetBilgisiDataGridView.Rows[i].Cells[2].Value);
                 string birimFiyati = Convert.ToString(malHizmetBilgisiDataGridView.Rows[i].Cells[4].Value);
-                
-                
                 if (kdvYuzdesi != null && kdvYuzdesi != "")
                 {
-                    driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[11]/select/option[" + (Convert.ToInt32(kdvYuzdesi) + 1) + "]")).Click();
+                    driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[11]/select/option[" + (kdvYuzdeComboBox.Items.IndexOf(kdvYuzdesi)+ 1) + "]")).Click();
                 }
                 if (birim != null && birim != "")
                 {
-                    driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[6]/select/option[" + (Convert.ToInt32(birim) + 1) + "]")).Click();
+                    driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[6]/select/option[" + (birimComboBox.Items.IndexOf(birim)+ 1) + "]")).Click();
                 }
                 if (malHizmet != null && malHizmet != "")
                 {
@@ -304,6 +352,46 @@ namespace E_Arşiv_Fatura
                 }
             }
             notEntry.SendKeys(notTextBox.Text);
+            #endregion
+
+            #region DataBase Process
+            DataBase db = new DataBase("Microsoft.ACE.OLEDB.12.0;", Application.StartupPath, "KayitliMusteriler.accdb");
+            db.dbBaglanti();
+            if (!db.Contains(vknEntry.GetAttribute("value")))
+                db.VeriEkle(vknEntry.GetAttribute("value"), unvanEntry.GetAttribute("value"), adEntry.GetAttribute("value"), soyadEntry.GetAttribute("value"), secilenUlke, vergiDairesiEntry.GetAttribute("value"), adresEntry.GetAttribute("value"));
+            #endregion
+
+            #region Finishing and Clearing Process
+            //driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[6]/div/div/div/div[1]/div/div/div/div/div/div/input")).Click();
+            MessageBox.Show("Faturanız başarıyla oluşturuldu !");
+            Clear.GroupBox(faturaBilgileriGroupBox);
+            Clear.GroupBox(malHizmetBilgileriGroupBox);
+            Clear.GroupBox(aliciBilgileriGroupBox);
+            Clear.GroupBox(notGroupBox);
+            malHizmetToplamTutarıSonucLabel.Text = "-----";
+            hesaplananKdvSonucLabel.Text = "-----";
+            vergilerDahilToplamTutarSonucLabel.Text = "-----";
+            #endregion
+        }
+
+        private void kayıtlıMusterilerComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (kayıtlıMusterilerComboBox.SelectedIndex == -1)
+            {
+                return;
+            }
+            DataBase db = new DataBase("Microsoft.ACE.OLEDB.12.0;", Application.StartupPath, "KayitliMusteriler.accdb");
+            db.dbBaglanti();
+            sayacCombobox.SelectedIndex = kayıtlıMusterilerComboBox.SelectedIndex;
+            ArrayList dizi = db.SearchDataByTC(sayacCombobox.Text);
+            vknTextBox.Text = dizi[0].ToString();
+            unvanTextBox.Text = dizi[1].ToString();
+            adıTextBox.Text = dizi[2].ToString();
+            soyadıTextBox.Text = dizi[3].ToString();
+            ulkeComboBox.SelectedIndex = Convert.ToInt32(dizi[4]);
+            vergiDairesiTextBox.Text = dizi[5].ToString();
+            adresTextBox.Text = dizi[6].ToString();
+            kayıtlıMusterilerComboBox.SelectedIndex = -1;
         }
     }
 }
