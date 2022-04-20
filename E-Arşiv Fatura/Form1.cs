@@ -20,10 +20,6 @@ namespace E_Arşiv_Fatura
         }
         //Tüm program boyunca web işlemlerimizi yapacağımız driver nesnemizi oluşturalım
         public static IWebDriver driver = new ChromeDriver();
-        private void loginScreenForm_Load(object sender, EventArgs e)
-        {
-
-        }
         private void exitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -176,5 +172,7 @@ namespace E_Arşiv_Fatura
             this.Hide();
             form.Show();
         }
+
+        
     }
 }
