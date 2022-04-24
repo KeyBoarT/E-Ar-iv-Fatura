@@ -22,7 +22,13 @@ namespace E_Arşiv_Fatura
         public static IWebDriver driver = new ChromeDriver();
         private void loginScreenForm_Load(object sender, EventArgs e)
         {
+            TestProcessing();
+        }
 
+        private void TestProcessing()
+        {
+            kullaniciAdiTextBox.Text = "76808007";
+            parolaTextBox.Text = "290629";
         }
         private void exitButton_Click(object sender, EventArgs e)
         {

@@ -87,10 +87,11 @@ namespace E_Arşiv_Fatura
             // 
             this.kullaniciAdiTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.kullaniciAdiTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.kullaniciAdiTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kullaniciAdiTextBox.ForeColor = System.Drawing.Color.White;
             this.kullaniciAdiTextBox.Location = new System.Drawing.Point(64, 293);
             this.kullaniciAdiTextBox.Name = "kullaniciAdiTextBox";
-            this.kullaniciAdiTextBox.Size = new System.Drawing.Size(306, 20);
+            this.kullaniciAdiTextBox.Size = new System.Drawing.Size(306, 22);
             this.kullaniciAdiTextBox.TabIndex = 3;
             this.kullaniciAdiTextBox.Text = "Kullanıcı Adı";
             this.kullaniciAdiTextBox.Enter += new System.EventHandler(this.kullaniciAdiTextBox_Enter);
@@ -100,10 +101,11 @@ namespace E_Arşiv_Fatura
             // 
             this.parolaTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.parolaTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.parolaTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.parolaTextBox.ForeColor = System.Drawing.Color.White;
             this.parolaTextBox.Location = new System.Drawing.Point(64, 357);
             this.parolaTextBox.Name = "parolaTextBox";
-            this.parolaTextBox.Size = new System.Drawing.Size(306, 20);
+            this.parolaTextBox.Size = new System.Drawing.Size(306, 22);
             this.parolaTextBox.TabIndex = 4;
             this.parolaTextBox.Text = "Parola";
             this.parolaTextBox.Enter += new System.EventHandler(this.parolaTextBox_Enter);
@@ -127,6 +129,7 @@ namespace E_Arşiv_Fatura
             this.sifreyiGizleGosterCheckBox.AutoSize = true;
             this.sifreyiGizleGosterCheckBox.BackColor = System.Drawing.Color.Transparent;
             this.sifreyiGizleGosterCheckBox.FlatAppearance.BorderSize = 0;
+            this.sifreyiGizleGosterCheckBox.Font = new System.Drawing.Font("Prosto One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.sifreyiGizleGosterCheckBox.ForeColor = System.Drawing.Color.White;
             this.sifreyiGizleGosterCheckBox.Location = new System.Drawing.Point(190, 397);
             this.sifreyiGizleGosterCheckBox.Name = "sifreyiGizleGosterCheckBox";
@@ -138,7 +141,7 @@ namespace E_Arşiv_Fatura
             // 
             // loginScreenForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::E_Arşiv_Fatura.Properties.Resources.LoginScreen;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -151,7 +154,7 @@ namespace E_Arşiv_Fatura
             this.Controls.Add(this.minimizeButton);
             this.Controls.Add(this.exitButton);
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Prosto One", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Name = "loginScreenForm";
