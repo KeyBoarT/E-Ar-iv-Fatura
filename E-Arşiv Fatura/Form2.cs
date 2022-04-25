@@ -371,6 +371,7 @@ namespace E_Arşiv_Fatura
                     birimFiyatiEntry.SendKeys(birimFiyati);
                 }
             }
+            odenecekTutarEntry.Click();
             odenecekTutarEntry.SendKeys(odenecekTutarTextBox.Text);
             notEntry.SendKeys(notTextBox.Text);
             #endregion
@@ -392,6 +393,7 @@ namespace E_Arşiv_Fatura
             malHizmetToplamTutarıSonucLabel.Text = "-----";
             hesaplananKdvSonucLabel.Text = "-----";
             vergilerDahilToplamTutarSonucLabel.Text = "-----";
+            odenecekTutarTextBox.Clear();
             #endregion
         }
 
@@ -484,7 +486,7 @@ namespace E_Arşiv_Fatura
             int kdvOrani = 0;
             Double birimFiyati = 0;
 
-            if (e.ColumnIndex == 2 || e.ColumnIndex == 4 || e.ColumnIndex == 6)
+            if (e.ColumnIndex == 2 || e.ColumnIndex == 4 || e.ColumnIndex == 6 || e.ColumnIndex == 8)
             {
                 string strmiktar = Convert.ToString(tevMalHizmetBilgisiDataGridView.CurrentRow.Cells[2].Value);
                 string strbirimFiyati = Convert.ToString(tevMalHizmetBilgisiDataGridView.CurrentRow.Cells[4].Value);
@@ -547,16 +549,27 @@ namespace E_Arşiv_Fatura
         }
         private void tevToplamlariHesaplaYazdir()
         {
+            double[] vergiOranları = {0.3, 0.4, 0.9, 0.5, 0.5, 0.5, 0.9, 0.9, 0.9, 0.5, 0.7, 0.9, 0.9, 0.7, 0.9, 0.7, 0.9, 0.5, 0.5, 0.7, 0.5, 0.7, 0.7, 0.7, 0.7, 0.9, 0.9, 0.5, 0.2, 0.7, 0.2};
+            double malHizmetToplamKdvTevkifat = 0;
             double malHizmetToplamTutari = 0;
             double hesaplananKdv = 0;
             for (int i = tevMalHizmetBilgisiDataGridView.RowCount - 1; i >= 0; i--)
             {
                 malHizmetToplamTutari += Convert.ToDouble(tevMalHizmetBilgisiDataGridView.Rows[i].Cells[5].Value);
                 hesaplananKdv += Convert.ToDouble(tevMalHizmetBilgisiDataGridView.Rows[i].Cells[7].Value);
+                string Value = Convert.ToString(tevMalHizmetBilgisiDataGridView.Rows[i].Cells[8].Value);
+                if (!String.IsNullOrEmpty(Value))
+                {
+                    DataGridViewComboBoxCell malHizmetToplamKDVTevkifatComboBox = (DataGridViewComboBoxCell)tevMalHizmetBilgisiDataGridView.Rows[i].Cells[8];
+                    Double kdvTevkifat = Convert.ToDouble(hesaplananKdv * vergiOranları[malHizmetToplamKDVTevkifatComboBox.Items.IndexOf(Value)]);
+                    malHizmetToplamKdvTevkifat += kdvTevkifat;
+                }
             }
             tevMalHizmetToplamTutarıSonucLabel.Text = String.Format("{0:F2}", malHizmetToplamTutari);
             tevHesaplananKdvSonucLabel.Text = String.Format("{0:F2}", hesaplananKdv);
-            tevVergilerDahilToplamTutarSonucLabel.Text = String.Format("{0:F2}", malHizmetToplamTutari + hesaplananKdv);
+            tevHesaplananKDVTEVKİFATSonucLabel.Text = String.Format("{0:F2}", malHizmetToplamKdvTevkifat);
+            tevVergilerDahilToplamTutarSonucLabel.Text = String.Format("{0:F2}", malHizmetToplamTutari + hesaplananKdv - malHizmetToplamKdvTevkifat);
+            tevOdenecekTutarTextBox.Text = String.Format("{0:F2}", malHizmetToplamTutari + hesaplananKdv - malHizmetToplamKdvTevkifat);
         }
 
         private void tevSatirSilButton_Click(object sender, EventArgs e)
@@ -626,16 +639,6 @@ namespace E_Arşiv_Fatura
                 tevOdenecekTutarTextBox.Text = String.Format("{0:F2}", 0);
             }
         }
-
-        private void odenecekTutarTextBox_Click(object sender, EventArgs e)
-        {
-            if (!String.IsNullOrEmpty(tevOdenecekTutarTextBox.Text))
-            {
-                odenecekTutarTextBox.SelectionStart = 0;
-                odenecekTutarTextBox.SelectionLength = tevOdenecekTutarTextBox.Text.Length;
-            }
-        }
-
         private void odenecekTutarTextBox_Leave(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(odenecekTutarTextBox.Text))

@@ -29,17 +29,17 @@ namespace E_Arşiv_Fatura
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
             this.mainScreenMenuPanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.mainScreenExitButton = new System.Windows.Forms.Button();
@@ -60,6 +60,8 @@ namespace E_Arşiv_Fatura
             this.kayitliNotlarComboBox = new System.Windows.Forms.ComboBox();
             this.notTextBox = new System.Windows.Forms.TextBox();
             this.toplamlarGroupBox = new System.Windows.Forms.GroupBox();
+            this.odenecekTutarTextBox = new System.Windows.Forms.TextBox();
+            this.OdenecekTutarLabel = new System.Windows.Forms.Label();
             this.vergilerDahilToplamTutarSonucLabel = new System.Windows.Forms.Label();
             this.hesaplananKdvSonucLabel = new System.Windows.Forms.Label();
             this.malHizmetToplamTutarıSonucLabel = new System.Windows.Forms.Label();
@@ -164,8 +166,6 @@ namespace E_Arşiv_Fatura
             this.tevBelgeNumarasiLabel = new System.Windows.Forms.Label();
             this.tevEttnLabel = new System.Windows.Forms.Label();
             this.olusturulanFaturalarTabPage = new System.Windows.Forms.TabPage();
-            this.odenecekTutarTextBox = new System.Windows.Forms.TextBox();
-            this.OdenecekTutarLabel = new System.Windows.Forms.Label();
             this.mainScreenMenuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainScreenMenuPictureBox)).BeginInit();
             this.islemlerGroupBox.SuspendLayout();
@@ -374,7 +374,7 @@ namespace E_Arşiv_Fatura
             this.faturaOlusturPanel.Controls.Add(this.faturaBilgileriGroupBox);
             this.faturaOlusturPanel.Location = new System.Drawing.Point(0, 0);
             this.faturaOlusturPanel.Name = "faturaOlusturPanel";
-            this.faturaOlusturPanel.Size = new System.Drawing.Size(772, 1245);
+            this.faturaOlusturPanel.Size = new System.Drawing.Size(772, 1248);
             this.faturaOlusturPanel.TabIndex = 0;
             // 
             // notGroupBox
@@ -451,6 +451,27 @@ namespace E_Arşiv_Fatura
             this.toplamlarGroupBox.TabIndex = 17;
             this.toplamlarGroupBox.TabStop = false;
             this.toplamlarGroupBox.Text = "Toplamlar";
+            // 
+            // odenecekTutarTextBox
+            // 
+            this.odenecekTutarTextBox.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.odenecekTutarTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.odenecekTutarTextBox.Location = new System.Drawing.Point(337, 125);
+            this.odenecekTutarTextBox.Name = "odenecekTutarTextBox";
+            this.odenecekTutarTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.odenecekTutarTextBox.Size = new System.Drawing.Size(105, 26);
+            this.odenecekTutarTextBox.TabIndex = 34;
+            this.odenecekTutarTextBox.Leave += new System.EventHandler(this.odenecekTutarTextBox_Leave);
+            // 
+            // OdenecekTutarLabel
+            // 
+            this.OdenecekTutarLabel.AutoSize = true;
+            this.OdenecekTutarLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
+            this.OdenecekTutarLabel.Location = new System.Drawing.Point(214, 128);
+            this.OdenecekTutarLabel.Name = "OdenecekTutarLabel";
+            this.OdenecekTutarLabel.Size = new System.Drawing.Size(113, 18);
+            this.OdenecekTutarLabel.TabIndex = 33;
+            this.OdenecekTutarLabel.Text = "Ödenecek Tutar";
             // 
             // vergilerDahilToplamTutarSonucLabel
             // 
@@ -593,8 +614,8 @@ namespace E_Arşiv_Fatura
             // 
             // malHizmetColumn
             // 
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            this.malHizmetColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Black;
+            this.malHizmetColumn.DefaultCellStyle = dataGridViewCellStyle12;
             this.malHizmetColumn.HeaderText = "Mal/Hizmet*";
             this.malHizmetColumn.Name = "malHizmetColumn";
             this.malHizmetColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -602,10 +623,10 @@ namespace E_Arşiv_Fatura
             // 
             // miktarColumn
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N0";
-            dataGridViewCellStyle2.NullValue = "0";
-            this.miktarColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "N0";
+            dataGridViewCellStyle13.NullValue = "0";
+            this.miktarColumn.DefaultCellStyle = dataGridViewCellStyle13;
             this.miktarColumn.HeaderText = "Miktar";
             this.miktarColumn.Name = "miktarColumn";
             this.miktarColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -672,10 +693,10 @@ namespace E_Arşiv_Fatura
             // 
             // birimFiyatiColumn
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N6";
-            dataGridViewCellStyle3.NullValue = "0,000000";
-            this.birimFiyatiColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "N6";
+            dataGridViewCellStyle14.NullValue = "0,000000";
+            this.birimFiyatiColumn.DefaultCellStyle = dataGridViewCellStyle14;
             this.birimFiyatiColumn.HeaderText = "Birim Fiyatı";
             this.birimFiyatiColumn.Name = "birimFiyatiColumn";
             this.birimFiyatiColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -683,11 +704,11 @@ namespace E_Arşiv_Fatura
             // 
             // malHizmetTutariColumn
             // 
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = "0,00";
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.malHizmetTutariColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle15.Format = "N2";
+            dataGridViewCellStyle15.NullValue = "0,00";
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.malHizmetTutariColumn.DefaultCellStyle = dataGridViewCellStyle15;
             this.malHizmetTutariColumn.HeaderText = "Mal/Hizmet Tutarı";
             this.malHizmetTutariColumn.Name = "malHizmetTutariColumn";
             this.malHizmetTutariColumn.ReadOnly = true;
@@ -707,11 +728,11 @@ namespace E_Arşiv_Fatura
             // 
             // kdvTutariColumn
             // 
-            dataGridViewCellStyle5.Format = "N2";
-            dataGridViewCellStyle5.NullValue = "0,00";
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.kdvTutariColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle16.Format = "N2";
+            dataGridViewCellStyle16.NullValue = "0,00";
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.kdvTutariColumn.DefaultCellStyle = dataGridViewCellStyle16;
             this.kdvTutariColumn.HeaderText = "KDV Tutarı";
             this.kdvTutariColumn.Name = "kdvTutariColumn";
             this.kdvTutariColumn.ReadOnly = true;
@@ -1296,7 +1317,7 @@ namespace E_Arşiv_Fatura
             this.tevPanel.Controls.Add(this.tevFaturaBilgileriGroupBox);
             this.tevPanel.Location = new System.Drawing.Point(-3, 0);
             this.tevPanel.Name = "tevPanel";
-            this.tevPanel.Size = new System.Drawing.Size(778, 1260);
+            this.tevPanel.Size = new System.Drawing.Size(778, 1268);
             this.tevPanel.TabIndex = 0;
             // 
             // groupBox1
@@ -1307,7 +1328,7 @@ namespace E_Arşiv_Fatura
             this.groupBox1.Controls.Add(this.tevNotTextBox);
             this.groupBox1.Font = new System.Drawing.Font("Roboto", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.groupBox1.Location = new System.Drawing.Point(9, 1054);
+            this.groupBox1.Location = new System.Drawing.Point(9, 1055);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(763, 205);
             this.groupBox1.TabIndex = 28;
@@ -1559,8 +1580,8 @@ namespace E_Arşiv_Fatura
             // 
             // dataGridViewTextBoxColumn1
             // 
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.Black;
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle17;
             this.dataGridViewTextBoxColumn1.HeaderText = "Mal/Hizmet*";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -1568,10 +1589,10 @@ namespace E_Arşiv_Fatura
             // 
             // dataGridViewTextBoxColumn2
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "N0";
-            dataGridViewCellStyle7.NullValue = "0";
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle18.Format = "N0";
+            dataGridViewCellStyle18.NullValue = "0";
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle18;
             this.dataGridViewTextBoxColumn2.HeaderText = "Miktar";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -1638,10 +1659,10 @@ namespace E_Arşiv_Fatura
             // 
             // dataGridViewTextBoxColumn3
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N6";
-            dataGridViewCellStyle8.NullValue = "0,000000";
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle19.Format = "N6";
+            dataGridViewCellStyle19.NullValue = "0,000000";
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle19;
             this.dataGridViewTextBoxColumn3.HeaderText = "Birim Fiyatı";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -1649,11 +1670,11 @@ namespace E_Arşiv_Fatura
             // 
             // dataGridViewTextBoxColumn4
             // 
-            dataGridViewCellStyle9.Format = "N2";
-            dataGridViewCellStyle9.NullValue = "0,00";
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle20.Format = "N2";
+            dataGridViewCellStyle20.NullValue = "0,00";
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle20;
             this.dataGridViewTextBoxColumn4.HeaderText = "Mal/Hizmet Tutarı";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
@@ -1673,11 +1694,11 @@ namespace E_Arşiv_Fatura
             // 
             // dataGridViewTextBoxColumn5
             // 
-            dataGridViewCellStyle10.Format = "N2";
-            dataGridViewCellStyle10.NullValue = "0,00";
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle21.Format = "N2";
+            dataGridViewCellStyle21.NullValue = "0,00";
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle21;
             this.dataGridViewTextBoxColumn5.HeaderText = "KDV Tutarı";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
@@ -1685,11 +1706,11 @@ namespace E_Arşiv_Fatura
             // 
             // tevkifatKodu
             // 
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.DarkGray;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.DarkGray;
-            this.tevkifatKodu.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle22.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.DarkGray;
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.DarkGray;
+            this.tevkifatKodu.DefaultCellStyle = dataGridViewCellStyle22;
             this.tevkifatKodu.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.tevkifatKodu.HeaderText = "Tevkifat Kodu";
             this.tevkifatKodu.Items.AddRange(new object[] {
@@ -2309,28 +2330,6 @@ namespace E_Arşiv_Fatura
             this.olusturulanFaturalarTabPage.TabIndex = 2;
             this.olusturulanFaturalarTabPage.Text = "Oluşturulan Faturalar";
             this.olusturulanFaturalarTabPage.UseVisualStyleBackColor = true;
-            // 
-            // odenecekTutarTextBox
-            // 
-            this.odenecekTutarTextBox.Font = new System.Drawing.Font("Roboto Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.odenecekTutarTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.odenecekTutarTextBox.Location = new System.Drawing.Point(337, 125);
-            this.odenecekTutarTextBox.Name = "odenecekTutarTextBox";
-            this.odenecekTutarTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.odenecekTutarTextBox.Size = new System.Drawing.Size(105, 26);
-            this.odenecekTutarTextBox.TabIndex = 34;
-            this.odenecekTutarTextBox.Click += new System.EventHandler(this.odenecekTutarTextBox_Click);
-            this.odenecekTutarTextBox.Leave += new System.EventHandler(this.odenecekTutarTextBox_Leave);
-            // 
-            // OdenecekTutarLabel
-            // 
-            this.OdenecekTutarLabel.AutoSize = true;
-            this.OdenecekTutarLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(56)))), ((int)(((byte)(95)))));
-            this.OdenecekTutarLabel.Location = new System.Drawing.Point(214, 128);
-            this.OdenecekTutarLabel.Name = "OdenecekTutarLabel";
-            this.OdenecekTutarLabel.Size = new System.Drawing.Size(113, 18);
-            this.OdenecekTutarLabel.TabIndex = 33;
-            this.OdenecekTutarLabel.Text = "Ödenecek Tutar";
             // 
             // mainScreenForm
             // 
