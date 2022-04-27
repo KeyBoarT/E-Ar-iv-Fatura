@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.OleDb;
 using System.Collections;
+using System.Windows.Forms;
 
 namespace E_Arşiv_Fatura
 {
@@ -27,19 +28,29 @@ namespace E_Arşiv_Fatura
         public void dbBaglanti()
         {
             baglanti = new OleDbConnection(provider + dataSource + dbName);
+            try
+            {
+                baglanti = new OleDbConnection(provider + dataSource + dbName);
+            }
+            catch (System.InvalidOperationException e)
+            {
+                MessageBox.Show("Database'e erişilemiyor !" + Environment.NewLine +
+                    "Hata :" + e.Message);
+                return;
+            }
             adapter = new OleDbDataAdapter("Select * from Musteriler", baglanti);
             baglanti.Open();
             adapter.Fill(dataset);
             baglanti.Close();
         }
 
-        public void VeriEkle(string tcKimlik, string unvan, string adi, string soyadi, int ulke, string vergiDairesi, string adres)
+        public void VeriEkle(string tcKimlik, string unvan, string adi, string soyadi, int ulke, string vergiDairesi, string adres, string not)
         {
             OleDbCommand komut = new OleDbCommand();
             baglanti.Open();
             komut.Connection = baglanti;
-            komut.CommandText = "insert into Musteriler (tc_kimlik_numarasi, unvan, ad, soyad, ulke, vergi_dairesi, adres)" +
-                " values (@tckimlik,@unvan,@ad,@soyad,@ulke,@vergidairesi,@adres)";
+            komut.CommandText = "insert into Musteriler (tc_kimlik_numarasi, unvan, ad, soyad, ulke, vergi_dairesi, adres, metin_not)" +
+                " values (@tckimlik,@unvan,@ad,@soyad,@ulke,@vergidairesi,@adres,@metin_not)";
             komut.Parameters.AddWithValue("@tckimlik", tcKimlik);
             komut.Parameters.AddWithValue("@unvan", unvan);
             komut.Parameters.AddWithValue("@ad", adi);
@@ -47,10 +58,20 @@ namespace E_Arşiv_Fatura
             komut.Parameters.AddWithValue("@ulke", ulke);
             komut.Parameters.AddWithValue("@vergidairesi", vergiDairesi);
             komut.Parameters.AddWithValue("@adres", adres);
+            komut.Parameters.AddWithValue("@metin_not", not.ToString());
             komut.ExecuteNonQuery();
             baglanti.Close();
         }
 
+        public void NotGuncelle(string guncellenecekTc, string yeniNot)
+        {
+            baglanti.Open();
+            OleDbCommand komut = new OleDbCommand();
+            komut.Connection = baglanti;
+            komut.CommandText = "update Musteriler set metin_not = '" + yeniNot + "' where tc_kimlik_numarasi = '" + guncellenecekTc + "'";
+            komut.ExecuteNonQuery();
+            baglanti.Close();
+        }
         public ArrayList SearchDataByTC(string vergiNumarasi)
         {
             ArrayList dizi = new ArrayList();

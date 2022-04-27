@@ -75,23 +75,27 @@ namespace E_Arşiv_Fatura
             if (wait.TryFindByXPath(2, "/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/fieldset/table/tr[1]/td[2]/span"))
                 ettnSonucLabel.Text = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/fieldset/table/tr[1]/td[2]/span")).Text;
             duzenlenmeTarihiDateTimePicker.MaxDate = DateTime.Now.AddSeconds(30);
-            try
+            while (true)
             {
-                duzenlenmeSaatiDateTimePicker.Value = DateTime.Now;
-                duzenlenmeTarihiDateTimePicker.Value = DateTime.Now;
-            }
+                try
+                {
+                    duzenlenmeSaatiDateTimePicker.Value = DateTime.Now;
+                    duzenlenmeTarihiDateTimePicker.Value = DateTime.Now;
+                    break;
+                }
 
-            catch
-            {
-                tevDuzenlenmeTarihiDateTimePicker.MaxDate = DateTime.Now.AddSeconds(10);
-                duzenlenmeSaatiDateTimePicker.Value = DateTime.Now;
-                duzenlenmeTarihiDateTimePicker.Value = DateTime.Now;
+                catch
+                {
+                    tevDuzenlenmeTarihiDateTimePicker.MaxDate = DateTime.Now.AddSeconds(10);
+                    duzenlenmeSaatiDateTimePicker.Value = DateTime.Now;
+                    duzenlenmeTarihiDateTimePicker.Value = DateTime.Now;
+                }
             }
-            
             duzenlenmeTarihiDateTimePicker.CustomFormat = "dd-MM-yyyy";
             duzenlenmeTarihiDateTimePicker.MinDate = new DateTime(DateTime.Now.Year - 10, 1, 1);
             KayitlariListele();
         }
+        
         private void KayitlariListele()
         {
             kayıtlıMusterilerComboBox.Items.Clear();
@@ -117,6 +121,7 @@ namespace E_Arşiv_Fatura
         private void tevKayitlariListele()
         {
             tevKayıtlıMusterilerComboBox.Items.Clear();
+
             sayac2ComboBox.Items.Clear();
             DataBase db = new DataBase("Microsoft.ACE.OLEDB.12.0;", Application.StartupPath, "KayitliMusteriler.accdb");
             db.dbBaglanti();
@@ -325,6 +330,9 @@ namespace E_Arşiv_Fatura
             adEntry.SendKeys(adıTextBox.Text);
             soyadEntry.SendKeys(soyadıTextBox.Text);
             vergiDairesiEntry.SendKeys(vergiDairesiTextBox.Text);
+            odenecekTutarEntry.Click();
+            odenecekTutarEntry.SendKeys(odenecekTutarTextBox.Text);
+            notEntry.SendKeys(notTextBox.Text);
             if (secilenUlke == -1)
             {
                 MessageBox.Show("Ülke alanı boş olamaz !", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -371,21 +379,37 @@ namespace E_Arşiv_Fatura
                     birimFiyatiEntry.SendKeys(birimFiyati);
                 }
             }
-            odenecekTutarEntry.Click();
-            odenecekTutarEntry.SendKeys(odenecekTutarTextBox.Text);
-            notEntry.SendKeys(notTextBox.Text);
+
             #endregion
 
             #region DataBase Process
             DataBase db = new DataBase("Microsoft.ACE.OLEDB.12.0;", Application.StartupPath, "KayitliMusteriler.accdb");
             db.dbBaglanti();
-            if (!db.Contains(vknEntry.GetAttribute("value")))
-                db.VeriEkle(vknEntry.GetAttribute("value"), unvanEntry.GetAttribute("value"), adEntry.GetAttribute("value"), soyadEntry.GetAttribute("value"), secilenUlke, vergiDairesiEntry.GetAttribute("value"), adresEntry.GetAttribute("value"));
+            if (!String.IsNullOrEmpty(vknEntry.GetAttribute("value")))
+            {
+                if (!db.Contains(vknEntry.GetAttribute("value")))
+                {
+                    if (notuKaydetCheckBox.Checked)
+                        db.VeriEkle(vknEntry.GetAttribute("value"), unvanEntry.GetAttribute("value"), adEntry.GetAttribute("value"), soyadEntry.GetAttribute("value"), secilenUlke, vergiDairesiEntry.GetAttribute("value"), adresEntry.GetAttribute("value"), notEntry.GetAttribute("value"));
+                    else
+                        db.VeriEkle(vknEntry.GetAttribute("value"), unvanEntry.GetAttribute("value"), adEntry.GetAttribute("value"), soyadEntry.GetAttribute("value"), secilenUlke, vergiDairesiEntry.GetAttribute("value"), adresEntry.GetAttribute("value"), "");
+                }
+                else
+                {
+                    if (notuKaydetCheckBox.Checked)
+                    {
+                        db.NotGuncelle(vknEntry.GetAttribute("value"), notEntry.GetAttribute("value"));
+                    }
+                }
+            }
             #endregion
 
             #region Finishing and Clearing Process
-            //driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[6]/div/div/div/div[1]/div/div/div/div/div/div/input")).Click();
-            MessageBox.Show("Faturanız başarıyla oluşturuldu !");
+            driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[6]/div/div/div/div[1]/div/div/div/div/div/div/input")).Click();
+            IWebElement mesajBilgisi = driver.FindElement(By.XPath("/html/body/div[6]/div[2]/div/table/tbody/tr/td/span"));
+            IWebElement okButton = driver.FindElement(By.XPath("/html/body/div[6]/div[2]/div/div/div/input"));
+            MessageBox.Show(mesajBilgisi.Text);
+            okButton.Click();
             Clear.GroupBox(faturaBilgileriGroupBox);
             Clear.GroupBox(malHizmetBilgileriGroupBox);
             Clear.GroupBox(aliciBilgileriGroupBox);
@@ -394,6 +418,16 @@ namespace E_Arşiv_Fatura
             hesaplananKdvSonucLabel.Text = "-----";
             vergilerDahilToplamTutarSonucLabel.Text = "-----";
             odenecekTutarTextBox.Clear();
+            Clear.GroupBox(tevFaturaBilgileriGroupBox);
+            Clear.GroupBox(tevMalHizmetBilgileriGroupBox);
+            Clear.GroupBox(tevAliciBilgileriGroupBox);
+            Clear.GroupBox(tevNotGroupBox);
+            tevMalHizmetToplamTutarıSonucLabel.Text = "-----";
+            tevHesaplananKdvSonucLabel.Text = "-----";
+            tevVergilerDahilToplamTutarSonucLabel.Text = "-----";
+            tevOdenecekTutarTextBox.Clear();
+            islemlerTabControl.TabPages.Clear();
+            islemlerTabControl.TabPages.Add(hosgeldinizTabPage);
             #endregion
         }
 
@@ -414,6 +448,7 @@ namespace E_Arşiv_Fatura
             ulkeComboBox.SelectedIndex = Convert.ToInt32(dizi[4]);
             vergiDairesiTextBox.Text = dizi[5].ToString();
             adresTextBox.Text = dizi[6].ToString();
+            notTextBox.Text = dizi[7].ToString();
             kayıtlıMusterilerComboBox.SelectedIndex = -1;
         }
 
@@ -431,19 +466,22 @@ namespace E_Arşiv_Fatura
             driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[1]/div/div/div/div[2]/div/div/input")).Click();
             driver.SwitchTo().Alert().Accept();
             tevDuzenlenmeTarihiDateTimePicker.MaxDate = DateTime.Now;
-            try
+            while (true)
             {
-                tevDuzenlenmeSaatiDateTimePicker.Value = DateTime.Now;
-                tevDuzenlenmeTarihiDateTimePicker.Value = DateTime.Now;
-            }
+                try
+                {
+                    duzenlenmeSaatiDateTimePicker.Value = DateTime.Now;
+                    duzenlenmeTarihiDateTimePicker.Value = DateTime.Now;
+                    break;
+                }
 
-            catch
-            {
-                tevDuzenlenmeTarihiDateTimePicker.MaxDate = DateTime.Now.AddSeconds(10);
-                tevDuzenlenmeSaatiDateTimePicker.Value = DateTime.Now;
-                tevDuzenlenmeTarihiDateTimePicker.Value = DateTime.Now;
+                catch
+                {
+                    tevDuzenlenmeTarihiDateTimePicker.MaxDate = DateTime.Now.AddSeconds(10);
+                    duzenlenmeSaatiDateTimePicker.Value = DateTime.Now;
+                    duzenlenmeTarihiDateTimePicker.Value = DateTime.Now;
+                }
             }
-
             tevDuzenlenmeTarihiDateTimePicker.CustomFormat = "dd-MM-yyyy";
             tevDuzenlenmeTarihiDateTimePicker.MinDate = new DateTime(DateTime.Now.Year - 10, 1, 1);
             tevKayitlariListele();
@@ -466,6 +504,7 @@ namespace E_Arşiv_Fatura
             tevUlkeComboBox.SelectedIndex = Convert.ToInt32(dizi[4]);
             tevVergiDairesiTextBox.Text = dizi[5].ToString();
             tevAdresTextBox.Text = dizi[6].ToString();
+            tevNotTextBox.Text = dizi[7].ToString();
             tevKayıtlıMusterilerComboBox.SelectedIndex = -1;
         }
 
@@ -547,6 +586,7 @@ namespace E_Arşiv_Fatura
                 tevToplamlariHesaplaYazdir();
             }
         }
+       
         private void tevToplamlariHesaplaYazdir()
         {
             double[] vergiOranları = {0.3, 0.4, 0.9, 0.5, 0.5, 0.5, 0.9, 0.9, 0.9, 0.5, 0.7, 0.9, 0.9, 0.7, 0.9, 0.7, 0.9, 0.5, 0.5, 0.7, 0.5, 0.7, 0.7, 0.7, 0.7, 0.9, 0.9, 0.5, 0.2, 0.7, 0.2};
@@ -639,6 +679,7 @@ namespace E_Arşiv_Fatura
                 tevOdenecekTutarTextBox.Text = String.Format("{0:F2}", 0);
             }
         }
+        
         private void odenecekTutarTextBox_Leave(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(odenecekTutarTextBox.Text))
@@ -659,6 +700,144 @@ namespace E_Arşiv_Fatura
             {
                 odenecekTutarTextBox.Text = String.Format("{0:F2}", 0);
             }
+        }
+
+        private void tevKaydetButton_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            #region Web Process
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            IWebElement duzenlenmeTarihiEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/fieldset/table/tr[3]/td[2]/div/input"));
+            js.ExecuteScript("arguments[0].removeAttribute('disabled', 'disabled')", duzenlenmeTarihiEntry);
+            IWebElement duzenlemeSaatiEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[1]/div/div/fieldset/table/tr[4]/td[2]/div/input"));
+            IWebElement vknEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[1]/td[2]/input"));
+            IWebElement unvanEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[2]/td[2]/input"));
+            IWebElement adEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[3]/td[2]/input"));
+            IWebElement soyadEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[4]/td[2]/input"));
+            IWebElement vergiDairesiEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[5]/td[2]/input"));
+            IWebElement adresEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[7]/td[2]/textarea"));
+            int secilenUlke = tevUlkeComboBox.SelectedIndex;
+            IWebElement odenecekTutarEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[4]/div/div/fieldset/div/div/div/div/table/tr[2]/td[2]/div/table/tr[2]/td[2]/input"));
+            IWebElement notEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[5]/div/div/fieldset/div/div/div/textarea"));
+            duzenlemeSaatiEntry.Clear();
+            vknEntry.Clear();
+            unvanEntry.Clear();
+            adEntry.Clear();
+            soyadEntry.Clear();
+            vergiDairesiEntry.Clear();
+            adresEntry.Clear();
+            notEntry.Clear();
+            duzenlenmeTarihiEntry.Click();
+            duzenlenmeTarihiEntry.SendKeys(tevDuzenlenmeTarihiDateTimePicker.Text);
+            duzenlemeSaatiEntry.Click();
+            duzenlemeSaatiEntry.SendKeys(tevDuzenlenmeSaatiDateTimePicker.Text);
+            vknEntry.SendKeys(tevVknTextBox.Text);
+            unvanEntry.SendKeys(tevUnvanTextBox.Text);
+            adEntry.SendKeys(tevAdıTextBox.Text);
+            soyadEntry.SendKeys(tevSoyadiTextBox.Text);
+            vergiDairesiEntry.SendKeys(tevVergiDairesiTextBox.Text);
+            odenecekTutarEntry.Click();
+            odenecekTutarEntry.SendKeys(tevOdenecekTutarTextBox.Text);
+            notEntry.SendKeys(tevNotTextBox.Text);
+            if (secilenUlke == -1)
+            {
+                MessageBox.Show("Ülke alanı boş olamaz !", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[1]/div/div/div/div[2]/div/div/fieldset/table/tr[6]/td[2]/select/option[" + (secilenUlke + 1) + "]")).Click();
+            }
+            adresEntry.SendKeys(tevAdresTextBox.Text);
+            for (int i = 0; i < tevMalHizmetBilgisiDataGridView.RowCount; i++)
+            {
+                IWebElement malHizmetEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[4]/input"));
+                IWebElement miktarEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[5]/input"));
+                DataGridViewComboBoxCell birimComboBox = (DataGridViewComboBoxCell)malHizmetBilgisiDataGridView.Rows[i].Cells[3];
+                IWebElement birimFiyatiEntry = driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[7]/input"));
+                DataGridViewComboBoxCell kdvYuzdeComboBox = (DataGridViewComboBoxCell)tevMalHizmetBilgisiDataGridView.Rows[i].Cells[6];
+                DataGridViewComboBoxCell tevOraniComboBox = (DataGridViewComboBoxCell)tevMalHizmetBilgisiDataGridView.Rows[i].Cells[8];
+                malHizmetEntry.Clear();
+                miktarEntry.Clear();
+                birimFiyatiEntry.Clear();
+                string kdvYuzdesi = Convert.ToString(kdvYuzdeComboBox.Value);
+                string birim = Convert.ToString(birimComboBox.Value);
+                string tevOrani = Convert.ToString(birimComboBox.Value);
+                string malHizmet = Convert.ToString(malHizmetBilgisiDataGridView.Rows[i].Cells[1].Value);
+                string miktar = Convert.ToString(malHizmetBilgisiDataGridView.Rows[i].Cells[2].Value);
+                string birimFiyati = Convert.ToString(malHizmetBilgisiDataGridView.Rows[i].Cells[4].Value);
+                if (kdvYuzdesi != null && kdvYuzdesi != "")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[11]/select/option[" + (kdvYuzdeComboBox.Items.IndexOf(kdvYuzdesi) + 1) + "]")).Click();
+                }
+                if (birim != null && birim != "")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[6]/select/option[" + (birimComboBox.Items.IndexOf(birim) + 1) + "]")).Click();
+                }
+                if (tevOrani != null && tevOrani != "")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[3]/div/div/fieldset/div/div[2]/div/div/table/tbody/tr[" + (i + 1) + "]/td[13]/select/option[" + (tevOraniComboBox.Items.IndexOf(tevOrani) + 1) + "]")).Click();
+                }
+                if (malHizmet != null && malHizmet != "")
+                {
+                    malHizmetEntry.SendKeys(malHizmet);
+                }
+                if (miktar != null && miktar != "")
+                {
+                    miktarEntry.SendKeys(miktar);
+                }
+                if (birimFiyati != null && birimFiyati != "")
+                {
+                    birimFiyatiEntry.SendKeys(birimFiyati);
+                }
+            }
+            #endregion
+            #region DataBase Process
+            DataBase db = new DataBase("Microsoft.ACE.OLEDB.12.0;", Application.StartupPath, "KayitliMusteriler.accdb");
+            db.dbBaglanti();
+            if (!String.IsNullOrEmpty(vknEntry.GetAttribute("value")))
+            {
+                if (!db.Contains(vknEntry.GetAttribute("value")))
+                {
+                    if (tevNotuKaydetCheckBox.Checked)
+                        db.VeriEkle(vknEntry.GetAttribute("value"), unvanEntry.GetAttribute("value"), adEntry.GetAttribute("value"), soyadEntry.GetAttribute("value"), secilenUlke, vergiDairesiEntry.GetAttribute("value"), adresEntry.GetAttribute("value"), notEntry.GetAttribute("value"));
+                    else
+                        db.VeriEkle(vknEntry.GetAttribute("value"), unvanEntry.GetAttribute("value"), adEntry.GetAttribute("value"), soyadEntry.GetAttribute("value"), secilenUlke, vergiDairesiEntry.GetAttribute("value"), adresEntry.GetAttribute("value"), "");
+                }
+                else
+                {
+                    if (tevNotuKaydetCheckBox.Checked)
+                    {
+                        db.NotGuncelle(vknEntry.GetAttribute("value"), notEntry.GetAttribute("value"));
+                    }
+                }
+            }
+            #endregion
+            #region Finishing and Clearing Process
+            driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/div/div/div/div/div/div[2]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[2]/div/div/div[6]/div/div/div/div[1]/div/div/div/div/div/div/input")).Click();
+            IWebElement mesajBilgisi = driver.FindElement(By.XPath("/html/body/div[6]/div[2]/div/table/tbody/tr/td/span"));
+            IWebElement okButton = driver.FindElement(By.XPath("/html/body/div[6]/div[2]/div/div/div/input"));
+            MessageBox.Show(mesajBilgisi.Text);
+            okButton.Click();
+            Clear.GroupBox(tevFaturaBilgileriGroupBox);
+            Clear.GroupBox(tevMalHizmetBilgileriGroupBox);
+            Clear.GroupBox(tevAliciBilgileriGroupBox);
+            Clear.GroupBox(tevNotGroupBox);
+            tevMalHizmetToplamTutarıSonucLabel.Text = "-----";
+            tevHesaplananKdvSonucLabel.Text = "-----";
+            tevVergilerDahilToplamTutarSonucLabel.Text = "-----";
+            tevOdenecekTutarTextBox.Clear();
+            Clear.GroupBox(faturaBilgileriGroupBox);
+            Clear.GroupBox(malHizmetBilgileriGroupBox);
+            Clear.GroupBox(aliciBilgileriGroupBox);
+            Clear.GroupBox(notGroupBox);
+            malHizmetToplamTutarıSonucLabel.Text = "-----";
+            hesaplananKdvSonucLabel.Text = "-----";
+            vergilerDahilToplamTutarSonucLabel.Text = "-----";
+            odenecekTutarTextBox.Clear();
+            islemlerTabControl.TabPages.Clear();
+            islemlerTabControl.TabPages.Add(hosgeldinizTabPage);
+            #endregion
         }
     }
 }
